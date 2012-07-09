@@ -61,8 +61,8 @@ return array(
 			),
 		),
 		'db'=>array(
-		      'connectionString' => 'mysql:host=192.168.2.106;dbname=agros',
-		      'username' => 'francisco',
+		      'connectionString' => 'mysql:host=192.168.5.103;dbname=agros',
+		      'username' => 'agros',
 		      'password' => '123qwe',
 		      'charset' => 'utf8',
 		    ),

@@ -18,6 +18,7 @@
  * @property double $pesoNeto
  * @property double $impuresas
  * @property double $pesoNetoAnalizado
+ * @property double $saldo
  * @property integer $cliente_aid
  * @property integer $producto_did
  * @property integer $variedad_aid
@@ -30,13 +31,13 @@
  *
  * The followings are the available model relations:
  * @property Beneficio[] $beneficios
- * @property Temporada $temporada
  * @property Cliente $cliente
  * @property Ejido $ejido
  * @property Estado $estado
  * @property Estatus $estatus
  * @property Municipio $municipio
  * @property Producto $producto
+ * @property Temporada $temporada
  * @property Unidad $unidad
  * @property Variedad $variedad
  * @property SalidaDirecta[] $salidaDirectas
@@ -68,13 +69,13 @@ class Entrada extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('codigo, fecha_f, pesoBruto, taraCamion, pesoNeto, impuresas, pesoNetoAnalizado, cliente_aid, producto_did, variedad_aid, unidad_did, estado_did, municipio_aid, ejido_did, estatus_did, temporada_did', 'required'),
+			array('codigo, fecha_f, pesoBruto, taraCamion, pesoNeto, impuresas, pesoNetoAnalizado, saldo, cliente_aid, producto_did, variedad_aid, unidad_did, estado_did, municipio_aid, ejido_did, estatus_did, temporada_did', 'required'),
 			array('codigo, cliente_aid, producto_did, variedad_aid, unidad_did, estado_did, municipio_aid, ejido_did, estatus_did, temporada_did', 'numerical', 'integerOnly'=>true),
-			array('pesoBruto, taraCamion, pesoNeto, impuresas, pesoNetoAnalizado', 'numerical'),
+			array('pesoBruto, taraCamion, pesoNeto, impuresas, pesoNetoAnalizado, saldo', 'numerical'),
 			array('cosecha, camion, marca, modelo, placas, conductor', 'length', 'max'=>145),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, codigo, fecha_f, cosecha, camion, marca, modelo, placas, conductor, pesoBruto, taraCamion, pesoNeto, impuresas, pesoNetoAnalizado, cliente_aid, producto_did, variedad_aid, unidad_did, estado_did, municipio_aid, ejido_did, estatus_did, temporada_did', 'safe', 'on'=>'search'),
+			array('id, codigo, fecha_f, cosecha, camion, marca, modelo, placas, conductor, pesoBruto, taraCamion, pesoNeto, impuresas, pesoNetoAnalizado, saldo, cliente_aid, producto_did, variedad_aid, unidad_did, estado_did, municipio_aid, ejido_did, estatus_did, temporada_did', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,13 +88,13 @@ class Entrada extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'beneficios' => array(self::HAS_MANY, 'Beneficio', 'entrada_aid'),
-			'temporada' => array(self::BELONGS_TO, 'Temporada', 'temporada_did'),
 			'cliente' => array(self::BELONGS_TO, 'Cliente', 'cliente_aid'),
 			'ejido' => array(self::BELONGS_TO, 'Ejido', 'ejido_did'),
 			'estado' => array(self::BELONGS_TO, 'Estado', 'estado_did'),
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 			'municipio' => array(self::BELONGS_TO, 'Municipio', 'municipio_aid'),
 			'producto' => array(self::BELONGS_TO, 'Producto', 'producto_did'),
+			'temporada' => array(self::BELONGS_TO, 'Temporada', 'temporada_did'),
 			'unidad' => array(self::BELONGS_TO, 'Unidad', 'unidad_did'),
 			'variedad' => array(self::BELONGS_TO, 'Variedad', 'variedad_aid'),
 			'salidaDirectas' => array(self::HAS_MANY, 'SalidaDirecta', 'entrada_aid'),
@@ -120,6 +121,7 @@ class Entrada extends CActiveRecord
 			'pesoNeto' => 'Peso Neto',
 			'impuresas' => 'Impuresas',
 			'pesoNetoAnalizado' => 'Peso Neto Analizado',
+			'saldo' => 'Saldo',
 			'cliente_aid' => 'Cliente',
 			'producto_did' => 'Producto',
 			'variedad_aid' => 'Variedad',
@@ -157,6 +159,7 @@ class Entrada extends CActiveRecord
 		$criteria->compare('pesoNeto',$this->pesoNeto);
 		$criteria->compare('impuresas',$this->impuresas);
 		$criteria->compare('pesoNetoAnalizado',$this->pesoNetoAnalizado);
+		$criteria->compare('saldo',$this->saldo);
 		$criteria->compare('cliente_aid',$this->cliente_aid);
 		$criteria->compare('producto_did',$this->producto_did);
 		$criteria->compare('variedad_aid',$this->variedad_aid);

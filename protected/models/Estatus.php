@@ -26,7 +26,9 @@
  * @property SalidaDirecta[] $salidaDirectas
  * @property Servicio[] $servicios
  * @property Temporada[] $temporadas
+ * @property TipoUsuario[] $tipoUsuarios
  * @property Unidad[] $unidads
+ * @property Usuario[] $usuarios
  * @property Variedad[] $variedads
  */
 class Estatus extends CActiveRecord
@@ -90,7 +92,9 @@ class Estatus extends CActiveRecord
 			'salidaDirectas' => array(self::HAS_MANY, 'SalidaDirecta', 'estatus_did'),
 			'servicios' => array(self::HAS_MANY, 'Servicio', 'estatus_did'),
 			'temporadas' => array(self::HAS_MANY, 'Temporada', 'estatus_did'),
+			'tipoUsuarios' => array(self::HAS_MANY, 'TipoUsuario', 'estatus_did'),
 			'unidads' => array(self::HAS_MANY, 'Unidad', 'estatus_did'),
+			'usuarios' => array(self::HAS_MANY, 'Usuario', 'estatus_did'),
 			'variedads' => array(self::HAS_MANY, 'Variedad', 'estatus_did'),
 		);
 	}

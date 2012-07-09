@@ -7,7 +7,7 @@
 <?php
 echo "<?php\n";
 $label=$this->class2name($this->modelClass);
-echo "\$this->pageCaption='Create $this->modelClass';
+echo "\$this->pageCaption='Crear $this->modelClass';
 \$this->pageTitle=Yii::app()->name . ' - ' . \$this->pageCaption;
 \$this->pageDescription='Crear nuevo ".strtolower($this->modelClass)."';
 \$this->breadcrumbs=array(

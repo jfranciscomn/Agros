@@ -66,7 +66,7 @@
 	
 	<footer class="footer">
 		<div class="container">
-			<p>Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+			<p>Copyright &copy; <?php echo date('Y'); ?> by Agros.<br/>
 			All Rights Reserved.<br/>
 			<?php echo Yii::powered(); ?></p>
 		</div>

@@ -7,12 +7,12 @@
 <?php
 echo "<?php\n";
 $label=$this->class2name($this->modelClass);
-echo "\$this->pageCaption='Manage $label';
+echo "\$this->pageCaption='Administrar $label';
 \$this->pageTitle=Yii::app()->name . ' - ' . \$this->pageCaption;
-\$this->pageDescription='Administar ".strtolower($label)."';
+\$this->pageDescription='Administrar ".strtolower($label)."';
 \$this->breadcrumbs=array(
 	'$label'=>array('index'),
-	'Manage',
+	'Administrar',
 );\n";
 ?>
 

@@ -14,7 +14,7 @@
 				<h3><?php echo CHtml::encode($this->sidebarCaption); ?></h3>
 				<?php
 					$this->beginWidget('zii.widgets.CPortlet', array(
-						'title'=>'Operations',
+						'title'=>'Operaciones',
 					));
 					$this->widget('zii.widgets.CMenu', array(
 						'items'=>$this->menu,
