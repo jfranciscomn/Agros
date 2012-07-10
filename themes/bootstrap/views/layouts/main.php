@@ -29,16 +29,53 @@
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="brand" href="<?php echo $this->createAbsoluteUrl('//'); ?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
-				<?php $this->widget('zii.widgets.CMenu',array(
-					'items'=>array(
-						array('label'=>'Home', 'url'=>array('/site/index')),
-						array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-						array('label'=>'Contact', 'url'=>array('/site/contact')),
-						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-					),
-					'htmlOptions'=>array(
-						'class'=>'nav',
-					),
+				<?php 
+				$items = array();
+				if(!Yii::app()->user->isGuest)
+				{
+					$items[]=array('label'=>'Cultivos',
+				      'url'=>'#',
+				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
+				      'linkOptions'=>array('class'=>'dropdown-toggle','data-toggle'=>'dropdown'),
+				      'submenuOptions'=>array('class'=>'dropdown-menu'),
+					  'items'=> array(
+										array('label'=>'Cultivos', 'url'=>array('/producto/index'),),
+										array('label'=>'Variedades', 'url'=>array('/variedad/index'), 'itemOptions'=>array()),
+										array('label'=>'Calibres', 'url'=>array('/calibre/index'), 'itemOptions'=>array()),
+										array('label'=>'Clasificaciones', 'url'=>array('/clasificacion/index'), 'itemOptions'=>array()),
+										
+										),
+				
+					);
+					
+					$items[]=array('label'=>'Administracion',
+				      'url'=>'#',
+				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
+				      'linkOptions'=>array('class'=>'dropdown-toggle','data-toggle'=>'dropdown'),
+				      'submenuOptions'=>array('class'=>'dropdown-menu'),
+					  'items'=> array(array('label'=>'Ambitos', 'url'=>array('/ambito/index'),),
+										array('label'=>'Areas Geograficas', 'url'=>array('/areaGeografica/index'), 'itemOptions'=>array()),
+										array('label'=>'Instituciones', 'url'=>array('/institucion/index'), 'itemOptions'=>array()),
+										array('label'=>'Ejercicios', 'url'=>array('/ejercicioFiscal/index'), 'itemOptions'=>array()),
+										
+										array('label'=>'Estados', 'url'=>array('/estado/index'), 'itemOptions'=>array()),
+										array('label'=>'Municipios', 'url'=>array('/municipio/index'), 'itemOptions'=>array()),
+										
+										array('label'=>'Usuarios', 'url'=>array('/usuario/index'), 'itemOptions'=>array()),
+										),
+					);
+				}
+				$items[]=array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest);
+				
+				
+				
+				
+				
+				$this->widget('ext.custom.widgets.BMenu',array(
+					'items'=>$items,
+					'htmlOptions'=>array('class'=>'nav nav-pills'),
+					'activateParents'=>true,
+					'activeCssClass'=>'',
 				)); ?>
 				<?php $this->widget('zii.widgets.CMenu',array(
 					'items'=>array(

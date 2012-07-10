@@ -609,3 +609,24 @@ Stack trace:
 REQUEST_URI=/Agros/index.php/site/profile
 HTTP_REFERER=http://localhost/Agros/index.php
 ---
+2012/07/10 16:03:31 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [2003] Can't connect to MySQL server on '192.168.5.103' (4)' in /Applications/XAMPP/xamppfiles/yii/framework/db/CDbConnection.php:382
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/yii/framework/db/CDbConnection.php(331): CDbConnection->open()
+#1 /Applications/XAMPP/xamppfiles/yii/framework/db/CDbConnection.php(309): CDbConnection->setActive(true)
+#2 /Applications/XAMPP/xamppfiles/yii/framework/base/CModule.php(388): CDbConnection->init()
+#3 /Applications/XAMPP/xamppfiles/yii/framework/base/CModule.php(104): CModule->getComponent('db')
+#4 /Applications/XAMPP/xamppfiles/yii/framework/gii/generators/crud/CrudCode.php(44): CModule->__get('db')
+#5 /Applications/XAMPP/xamppfiles/yii/framework/web/CFormModel.php(40): CrudCode->init()
+#6 /Applications/XAMPP/xamppfiles/yii/framework/gii/CCodeGenerator.php(154): CFormModel->__construct()
+#7 /Applications/XAMPP/xamppfiles/yii/framework/gii/CCodeGenerator.php(64): CCodeGenerator->prepare()
+#8 /Applications/XAMPP/xamppfiles/yii/framework/web/actions/CInlineAction.php(50): CCodeGenerator->actionIndex()
+#9 /Applications/XAMPP/xamppfiles/yii/framework/web/CController.php(309): CInlineAction->runWithParams(Array)
+#10 /Applications/XAMPP/xamppfiles/yii/framework/web/CController.php(287): CController->runAction(Object(CInlineAction))
+#11 /Applications/XAMPP/xamppfiles/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /Applications/XAMPP/xamppfiles/yii/framework/web/CWebApplication.php(276): CController->run('')
+#13 /Applications/XAMPP/xamppfiles/yii/framework/web/CWebApplication.php(135): CWebApplication->runController('gii/crud')
+#14 /Applications/XAMPP/xamppfiles/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#15 /Applications/XAMPP/xamppfiles/htdocs/Agros/index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/Agros/index.php/gii/crud
+---
