@@ -46,6 +46,7 @@ class Producto extends CActiveRecord
 		return array(
 			array('nombre, variedad, clasificacion, calibre, estatus_did', 'required'),
 			array('variedad, clasificacion, calibre, estatus_did', 'numerical', 'integerOnly'=>true),
+	
 			array('nombre', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

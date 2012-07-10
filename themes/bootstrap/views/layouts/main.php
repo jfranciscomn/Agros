@@ -33,13 +33,13 @@
 				$items = array();
 				if(!Yii::app()->user->isGuest)
 				{
-					$items[]=array('label'=>'Cultivos',
+					$items[]=array('label'=>'Productos',
 				      'url'=>'#',
 				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
 				      'linkOptions'=>array('class'=>'dropdown-toggle','data-toggle'=>'dropdown'),
 				      'submenuOptions'=>array('class'=>'dropdown-menu'),
 					  'items'=> array(
-										array('label'=>'Cultivos', 'url'=>array('/producto/index'),),
+										array('label'=>'Productos', 'url'=>array('/producto/index'),),
 										array('label'=>'Variedades', 'url'=>array('/variedad/index'), 'itemOptions'=>array()),
 										array('label'=>'Calibres', 'url'=>array('/calibre/index'), 'itemOptions'=>array()),
 										array('label'=>'Clasificaciones', 'url'=>array('/clasificacion/index'), 'itemOptions'=>array()),
@@ -47,21 +47,23 @@
 										),
 				
 					);
-					
 					$items[]=array('label'=>'Administracion',
 				      'url'=>'#',
 				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
 				      'linkOptions'=>array('class'=>'dropdown-toggle','data-toggle'=>'dropdown'),
 				      'submenuOptions'=>array('class'=>'dropdown-menu'),
-					  'items'=> array(array('label'=>'Ambitos', 'url'=>array('/ambito/index'),),
-										array('label'=>'Areas Geograficas', 'url'=>array('/areaGeografica/index'), 'itemOptions'=>array()),
-										array('label'=>'Instituciones', 'url'=>array('/institucion/index'), 'itemOptions'=>array()),
-										array('label'=>'Ejercicios', 'url'=>array('/ejercicioFiscal/index'), 'itemOptions'=>array()),
-										
-										array('label'=>'Estados', 'url'=>array('/estado/index'), 'itemOptions'=>array()),
-										array('label'=>'Municipios', 'url'=>array('/municipio/index'), 'itemOptions'=>array()),
-										
-										array('label'=>'Usuarios', 'url'=>array('/usuario/index'), 'itemOptions'=>array()),
+					  'items'=> array(array('label'=>'Temporadas', 'url'=>array('/temporada/index'),),
+										array('label'=>'Servicios', 'url'=>array('/servicio/index'), 'itemOptions'=>array()),
+										),
+					);
+					
+					$items[]=array('label'=>'Usuarios',
+				      'url'=>'#',
+				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
+				      'linkOptions'=>array('class'=>'dropdown-toggle','data-toggle'=>'dropdown'),
+				      'submenuOptions'=>array('class'=>'dropdown-menu'),
+					  'items'=> array(array('label'=>'Usuarios', 'url'=>array('/usuario/index'),),
+										array('label'=>'Tipos de Usuarios', 'url'=>array('/tipoUsuario/index'), 'itemOptions'=>array()),
 										),
 					);
 				}

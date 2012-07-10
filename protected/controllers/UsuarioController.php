@@ -1,6 +1,6 @@
 <?php
 
-class ProductoController extends Controller
+class UsuarioController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,14 +62,14 @@ class ProductoController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Producto;
+		$model=new Usuario;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Producto']))
+		if(isset($_POST['Usuario']))
 		{
-			$model->attributes=$_POST['Producto'];
+			$model->attributes=$_POST['Usuario'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -90,12 +90,10 @@ class ProductoController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-	/*	echo '<pre>';
-		print_r($_POST['Producto']);
-		echo '</pre>';*/
-		if(isset($_POST['Producto']))
+
+		if(isset($_POST['Usuario']))
 		{
-			$model->attributes=$_POST['Producto'];
+			$model->attributes=$_POST['Usuario'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -130,7 +128,7 @@ class ProductoController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Producto');
+		$dataProvider=new CActiveDataProvider('Usuario');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -141,10 +139,10 @@ class ProductoController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Producto('search');
+		$model=new Usuario('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Producto']))
-			$model->attributes=$_GET['Producto'];
+		if(isset($_GET['Usuario']))
+			$model->attributes=$_GET['Usuario'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -158,7 +156,7 @@ class ProductoController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Producto::model()->findByPk((int)$id);
+		$model=Usuario::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -170,7 +168,7 @@ class ProductoController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='producto-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='usuario-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -189,7 +187,7 @@ class ProductoController extends Controller
 			$criteria->condition="lower(CONCAT_WS(' ',nombre)) like lower(:nombre) ";
 			$criteria->params=array(':nombre'=>$q);
 			$criteria->limit='10';
-	       	$cursor = Producto::model()->findAll($criteria);
+	       	$cursor = Usuario::model()->findAll($criteria);
 			foreach ($cursor as $valor)	
 				$result[]=Array('label' => $valor->nombre,  
 				                'value' => $valor->nombre,

@@ -1,7 +1,7 @@
 <div class="form">
 
 <?php $form=$this->beginWidget('BActiveForm', array(
-	'id'=>'producto-form',
+	'id'=>'tipo-usuario-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -16,34 +16,8 @@
 		<?php echo $form->labelEx($model,'nombre'); ?>
 		<div class="input">
 			
-			<?php echo $form->textField($model,'nombre',array('size'=>60,'maxlength'=>150)); ?>
+			<?php echo $form->textField($model,'nombre',array('size'=>60,'maxlength'=>145)); ?>
 			<?php echo $form->error($model,'nombre'); ?>
-		</div>
-	</div>
-
-	<div class="<?php echo $form->fieldClass($model, 'variedad'); ?>">
-		<?php echo $form->labelEx($model,'variedad'); ?>
-		<div class="input">
-			<?php echo $form->dropDownList($model,'variedad', array(0=>'No', 1=>'Si')); ?>
-			<?php echo $form->error($model,'variedad'); ?>
-		</div>
-	</div>
-
-	<div class="<?php echo $form->fieldClass($model, 'clasificacion'); ?>">
-		<?php echo $form->labelEx($model,'clasificacion'); ?>
-		<div class="input">
-			
-			<?php echo $form->dropDownList($model,'clasificacion', array(0=>'No', 1=>'Si')); ?>
-			<?php echo $form->error($model,'clasificacion'); ?>
-			
-		</div>
-	</div>
-
-	<div class="<?php echo $form->fieldClass($model, 'calibre'); ?>">
-		<?php echo $form->labelEx($model,'calibre'); ?>
-		<div class="input">
-			<?php echo $form->dropDownList($model,'calibre', array(0=>'No', 1=>'Si')); ?>
-			<?php echo $form->error($model,'calibre'); ?>
 		</div>
 	</div>
 
