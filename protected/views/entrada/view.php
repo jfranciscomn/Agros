@@ -1,0 +1,59 @@
+<?php
+$this->pageCaption='Ver Entrada #'.$model->id;
+$this->pageTitle=Yii::app()->name . ' - ' . $this->pageCaption;
+$this->pageDescription='';
+$this->breadcrumbs=array(
+	'Entrada'=>array('index'),
+	$model->id,
+);
+
+$this->menu=array(
+	array('label'=>'Listar Entrada', 'url'=>array('index')),
+	array('label'=>'Crear Entrada', 'url'=>array('create')),
+	array('label'=>'Actualizar Entrada', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Eliminar Entrada', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'¿Estas seguro que quieres eliminar este elemento?')),
+	array('label'=>'Administrar Entrada', 'url'=>array('admin')),
+);
+?>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'baseScriptUrl'=>false,
+	'cssFile'=>false,
+	'htmlOptions'=>array('class'=>'table table-bordered table-striped'),
+	'attributes'=>array(
+		'id',
+		'codigo',
+		'fecha_f',
+		'cosecha',
+		'camion',
+		'marca',
+		'modelo',
+		'placas',
+		'conductor',
+		'pesoBruto',
+		'taraCamion',
+		'pesoNeto',
+		'impuresas',
+		'pesoNetoAnalizado',
+		'saldo',
+		array(	'name'=>'cliente_aid',
+		        'value'=>$model->cliente->nombre,),
+		array(	'name'=>'producto_did',
+		        'value'=>$model->producto->nombre,),
+		array(	'name'=>'variedad_aid',
+		        'value'=>$model->variedad->nombre,),
+		array(	'name'=>'unidad_did',
+		        'value'=>$model->unidad->nombre,),
+		array(	'name'=>'estado_did',
+		        'value'=>$model->estado->nombre,),
+		array(	'name'=>'municipio_aid',
+		        'value'=>$model->municipio->nombre,),
+		array(	'name'=>'ejido_did',
+		        'value'=>$model->ejido->nombre,),
+		array(	'name'=>'estatus_did',
+		        'value'=>$model->estatus->nombre,),
+		array(	'name'=>'temporada_did',
+		        'value'=>$model->temporada->nombre,),
+	),
+)); ?>

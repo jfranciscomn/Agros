@@ -1,0 +1,16 @@
+<?php
+$this->pageCaption='Crear Estado';
+$this->pageTitle=Yii::app()->name . ' - ' . $this->pageCaption;
+$this->pageDescription='Crear nuevo estado';
+$this->breadcrumbs=array(
+	'Estado'=>array('index'),
+	'Crear',
+);
+
+$this->menu=array(
+	array('label'=>'Listar Estado', 'url'=>array('index')),
+	array('label'=>'Administrar Estado', 'url'=>array('admin')),
+);
+?>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
