@@ -31,7 +31,7 @@ class VariedadController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','admin','delete'),
+				'actions'=>array('index','view','create','update','admin','delete','dynamicList'),
 				'users'=>array('@'),
 			),
 			/*
@@ -195,5 +195,44 @@ class VariedadController extends Controller
 	    }
 	    echo json_encode($result);
 	    Yii::app()->end();
+	}
+	/*
+	public function actionDynamicList()
+	{
+	   if(Yii::app()->request->isAjaxRequest)
+	   {
+	        echo CHtml::listData(Variedad::model()->findAll('producto_aid='.$_POST['producto']), 'id', 'nombre');
+	   }
+	}*/
+	public function actionDynamicList()
+	{
+	   if(Yii::app()->request->isAjaxRequest)
+	   {
+	        echo CHtml::tag('option',array('value'=>''),CHtml::encode('Categoria...'),true);
+	        
+	                echo CHtml::tag('option', array('value'=>1), CHtml::encode('Cat 1'), true);
+	                echo CHtml::tag('option', array('value'=>2), CHtml::encode('Cat 2'), true);
+	                echo CHtml::tag('option', array('value'=>3), CHtml::encode('Cat 3'), true);
+	       
+	   }
+	}
+
+	public function getCategory($id)
+	{
+	        $options=null;
+	        if($id>0)
+	        {
+	               
+	                        $options[1]='Cat 1';
+	                        $options[2]='Cat 2';
+	                        $options[3]='Cat 3';
+	               
+	                        $options[4]='Cat 4';
+	                        $options[5]='Cat 5';
+	                        $options[6]='Cat 6';
+	                
+	                return $options;
+	        }else
+	                return array();
 	}
 }

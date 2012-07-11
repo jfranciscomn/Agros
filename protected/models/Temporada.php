@@ -46,7 +46,7 @@ class Temporada extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, fechaIncial_f, estatus_did', 'required'),
+			array('nombre, fechaIncial_f, fechaFinal_f,estatus_did', 'required'),
 			array('estatus_did', 'numerical', 'integerOnly'=>true),
 			array('nombre', 'length', 'max'=>150),
 			array('fechaFinal_f', 'safe'),
@@ -82,8 +82,8 @@ class Temporada extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre' => 'Nombre',
-			'fechaIncial_f' => 'Fecha Incial F',
-			'fechaFinal_f' => 'Fecha Final F',
+			'fechaIncial_f' => 'Fecha Incial',
+			'fechaFinal_f' => 'Fecha Final',
 			'estatus_did' => 'Estatus',
 		);
 	}

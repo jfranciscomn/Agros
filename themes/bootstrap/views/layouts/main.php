@@ -33,6 +33,30 @@
 				$items = array();
 				if(!Yii::app()->user->isGuest)
 				{
+					$items[]=array('label'=>'Entradas',
+				      'url'=>'#',
+				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
+				      'linkOptions'=>array('class'=>'dropdown-toggle','data-toggle'=>'dropdown'),
+				      'submenuOptions'=>array('class'=>'dropdown-menu'),
+					  'items'=> array(
+										array('label'=>'Entradas', 'url'=>array('/entrada/index'),),
+										array('label'=>'Beneficios', 'url'=>array('/beneficio/index'), 'itemOptions'=>array()),
+									
+										),
+				
+					);
+					$items[]=array('label'=>'Salidas',
+				      'url'=>'#',
+				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
+				      'linkOptions'=>array('class'=>'dropdown-toggle','data-toggle'=>'dropdown'),
+				      'submenuOptions'=>array('class'=>'dropdown-menu'),
+					  'items'=> array(
+										array('label'=>'Salidas', 'url'=>array('/salida/index'),),
+										array('label'=>'Salidas Directas', 'url'=>array('/salidaDirecta/index'), 'itemOptions'=>array()),
+									
+										),
+				
+					);
 					$items[]=array('label'=>'Productos',
 				      'url'=>'#',
 				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
@@ -43,10 +67,21 @@
 										array('label'=>'Variedades', 'url'=>array('/variedad/index'), 'itemOptions'=>array()),
 										array('label'=>'Calibres', 'url'=>array('/calibre/index'), 'itemOptions'=>array()),
 										array('label'=>'Clasificaciones', 'url'=>array('/clasificacion/index'), 'itemOptions'=>array()),
-										
+										array('label'=>'Unidades', 'url'=>array('/unidad/index'), 'itemOptions'=>array()),
 										),
 				
 					);
+					$items[]=array('label'=>'Ubicaciones',
+				      'url'=>'#',
+				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
+				      'linkOptions'=>array('class'=>'dropdown-toggle','data-toggle'=>'dropdown'),
+				      'submenuOptions'=>array('class'=>'dropdown-menu'),
+					  'items'=> array(array('label'=>'Estados', 'url'=>array('/estado/index'),),
+										array('label'=>'Municipios', 'url'=>array('/municipio/index'), 'itemOptions'=>array()),
+										array('label'=>'Ejidos', 'url'=>array('/ejido/index'), 'itemOptions'=>array()),
+										),
+					);
+					
 					$items[]=array('label'=>'Administracion',
 				      'url'=>'#',
 				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
@@ -54,6 +89,9 @@
 				      'submenuOptions'=>array('class'=>'dropdown-menu'),
 					  'items'=> array(array('label'=>'Temporadas', 'url'=>array('/temporada/index'),),
 										array('label'=>'Servicios', 'url'=>array('/servicio/index'), 'itemOptions'=>array()),
+										array('label'=>'Configuracion', 'url'=>array('/configuracion/index'), 'itemOptions'=>array()),
+										array('label'=>'Servicios', 'url'=>array('/servicio/index'), 'itemOptions'=>array()),
+										array('label'=>'Precios', 'url'=>array('/precio/index'), 'itemOptions'=>array()),
 										),
 					);
 					

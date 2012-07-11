@@ -188,8 +188,8 @@ class ModelCode extends CCodeModel
 			$label=preg_replace('/\s+/',' ',$label);
 			if(strcasecmp(substr($label,-3),' id')===0)
 				$label=substr($label,0,-3);
-			if(strcasecmp(substr($label,-3),' f')===0)
-				$label=substr($label,0,-3);
+			if(strcasecmp(substr($label,-2),' f')===0)
+				$label=substr($label,0,-2);
 			else if(strcasecmp(substr($label,-4),' aid')===0)
 				$label=substr($label,0,-4);
 			else if(strcasecmp(substr($label,-4),' did')===0)

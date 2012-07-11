@@ -22,6 +22,7 @@ class Clasificacion extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * @return Clasificacion the static model class
 	 */
+	public $producto='';
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

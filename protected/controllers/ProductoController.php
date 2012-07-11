@@ -178,7 +178,8 @@ class ProductoController extends Controller
 	}
 	
 	
-	public function actionAutocompletesearch()
+	
+	public function actionAutocompletesearch($tipo='')
 	{
 	    $q = "%". $_GET['term'] ."%";
 	 	$result = array();
@@ -188,6 +189,10 @@ class ProductoController extends Controller
 			$criteria->select=array('id', "CONCAT_WS(' ',nombre) as nombre");
 			$criteria->condition="lower(CONCAT_WS(' ',nombre)) like lower(:nombre) ";
 			$criteria->params=array(':nombre'=>$q);
+			if($tipo=='clasificacion')
+				$criteria->condition="clasificacion=1";
+			else if($tipo=='calibre')
+				$criteria->condition="calibre=1";
 			$criteria->limit='10';
 	       	$cursor = Producto::model()->findAll($criteria);
 			foreach ($cursor as $valor)	
