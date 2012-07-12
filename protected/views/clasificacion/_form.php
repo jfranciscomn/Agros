@@ -29,32 +29,33 @@
 			<?php echo $form->error($model,'descripcion'); ?>
 		</div>
 	</div>
-	<div class="<?php echo $form->fieldClass($model, 'producto'); ?>">
-		<?php  echo $form->labelEx($model,'producto '); ?>
-		<div class="input">
-			<?php echo $form->dropDownList($model,'producto',CHtml::listData(Producto::model()->findAll(), 'id', 'nombre'),array(
-		        'empty'=>'Seleccione un Producto', 
-		        'ajax' => array(
-		                   'type'=>'POST',
-		                   'url'=>CController::createUrl('variedad/dynamicList'),
-		                   'update'=>'#Clasificacion_variedad_aid',
-		                   'data'=>array('producto'=>'js:this.value'),
-		                ),
-		        'style'=>'width:30%',
-		   )); ?>			
-			<?php echo $form->error($model,'producto'); ?>
-		</div>
-	</div>
 
-	
-	<div class="<?php echo $form->fieldClass($model, 'variedad_aid'); ?>">
-		<?php echo $form->labelEx($model,'variedad_aid'); ?>
-		<div class="input">
-			
-			<?php echo $form->dropDownList($model,'variedad_aid',CHtml::listData(array(), 'id', 'nombre'),array('empty' => 'Seleccione una variedad', 'style'=>'width:30%', 'disabled'=>false)); ?>			
-			<?php echo $form->error($model,'variedad_aid'); ?>
+		<div class="<?php echo $form->fieldClass($model, 'producto_did'); ?>">
+			<?php  echo $form->labelEx($model,'producto '); ?>
+			<div class="input">
+				<?php echo $form->dropDownList($model,'producto_did',CHtml::listData(Producto::model()->findAll(array('condition'=>'clasificacion=1','order'=>'nombre'), 'id', 'nombre'),array(
+			        'empty'=>'Seleccione un Producto', 
+			        'ajax' => array(
+			                   'type'=>'POST',
+			                   'url'=>CController::createUrl('variedad/dynamicList'),
+			                   'update'=>'#Clasificacion_variedad_did',
+			                   'data'=>array('producto'=>'js:this.value'),
+			                ),
+			        'style'=>'width:30%',
+			   )); ?>			
+				<?php echo $form->error($model,'producto_did'); ?>
+			</div>
 		</div>
-	</div>
+
+
+		<div class="<?php echo $form->fieldClass($model, 'variedad_did'); ?>">
+			<?php echo $form->labelEx($model,'variedad_did'); ?>
+			<div class="input">
+
+				<?php echo $form->dropDownList($model,'variedad_did',CHtml::listData(array(), 'id', 'nombre'),array('empty' => 'Seleccione una variedad', 'style'=>'width:30%', 'disabled'=>false)); ?>			
+				<?php echo $form->error($model,'variedad_did'); ?>
+			</div>
+		</div>
 
 	<div class="<?php echo $form->fieldClass($model, 'estatus_did'); ?>">
 		<?php echo $form->labelEx($model,'estatus_did'); ?>

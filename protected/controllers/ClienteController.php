@@ -1,6 +1,6 @@
 <?php
 
-class MunicipioController extends Controller
+class ClienteController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -31,7 +31,7 @@ class MunicipioController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','admin','delete','dynamicList'),
+				'actions'=>array('index','view','create','update','admin','delete'),
 				'users'=>array('@'),
 			),
 			/*
@@ -62,14 +62,14 @@ class MunicipioController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Municipio;
+		$model=new Cliente;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Municipio']))
+		if(isset($_POST['Cliente']))
 		{
-			$model->attributes=$_POST['Municipio'];
+			$model->attributes=$_POST['Cliente'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class MunicipioController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Municipio']))
+		if(isset($_POST['Cliente']))
 		{
-			$model->attributes=$_POST['Municipio'];
+			$model->attributes=$_POST['Cliente'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -128,7 +128,7 @@ class MunicipioController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Municipio');
+		$dataProvider=new CActiveDataProvider('Cliente');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -139,10 +139,10 @@ class MunicipioController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Municipio('search');
+		$model=new Cliente('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Municipio']))
-			$model->attributes=$_GET['Municipio'];
+		if(isset($_GET['Cliente']))
+			$model->attributes=$_GET['Cliente'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -156,7 +156,7 @@ class MunicipioController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Municipio::model()->findByPk((int)$id);
+		$model=Cliente::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -168,7 +168,7 @@ class MunicipioController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='municipio-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='cliente-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -183,11 +183,11 @@ class MunicipioController extends Controller
 	    if (!empty($q))
 	    {
 			$criteria=new CDbCriteria;
-			$criteria->select=array('id', "CONCAT_WS(' ',nombre) as nombre");
-			$criteria->condition="lower(CONCAT_WS(' ',nombre)) like lower(:nombre) ";
+			$criteria->select=array('id', "CONCAT_WS(' ',nombre,apellidos) as nombre");
+			$criteria->condition="lower(CONCAT_WS(' ',nombre,apellidos)) like lower(:nombre) ";
 			$criteria->params=array(':nombre'=>$q);
 			$criteria->limit='10';
-	       	$cursor = Municipio::model()->findAll($criteria);
+	       	$cursor = Cliente::model()->findAll($criteria);
 			foreach ($cursor as $valor)	
 				$result[]=Array('label' => $valor->nombre,  
 				                'value' => $valor->nombre,
@@ -195,21 +195,5 @@ class MunicipioController extends Controller
 	    }
 	    echo json_encode($result);
 	    Yii::app()->end();
-	}
-	
-	public function actionDynamicList()
-	{
-	   if(Yii::app()->request->isAjaxRequest && !empty($_POST['estado']) )
-	   {
-	        
-			$data=CHtml::listData(Municipio::model()->findAll(array('condition'=>'estado_did='.$_POST['estado'], 'order'=>'nombre')), 'id', 'nombre');
-			    foreach($data as $value=>$name)
-			    {
-			        echo CHtml::tag('option',
-			                   array('value'=>$value),CHtml::encode($name),true);
-			    }
-	   }
-		else{echo CHtml::tag('option',
-                   array(),CHtml::encode('Seleccione un Municipio'),true);}
 	}
 }

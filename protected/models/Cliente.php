@@ -91,7 +91,7 @@ class Cliente extends CActiveRecord
 			'id' => 'ID',
 			'nombre' => 'Nombre',
 			'apellidos' => 'Apellidos',
-			'fechaNacimiento_f' => 'Fecha Nacimiento F',
+			'fechaNacimiento_f' => 'Fecha Nacimiento',
 			'rfc' => 'Rfc',
 			'razonSocial' => 'Razon Social',
 			'codigopostal' => 'Codigopostal',

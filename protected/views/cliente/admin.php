@@ -1,15 +1,15 @@
 <?php
-$this->pageCaption='Administrar Calibre';
+$this->pageCaption='Administrar Cliente';
 $this->pageTitle=Yii::app()->name . ' - ' . $this->pageCaption;
-$this->pageDescription='Administrar calibre';
+$this->pageDescription='Administrar cliente';
 $this->breadcrumbs=array(
-	'Calibre'=>array('index'),
+	'Cliente'=>array('index'),
 	'Administrar',
 );
 
 $this->menu=array(
-	array('label'=>'Listar Calibre', 'url'=>array('index')),
-	array('label'=>'Crear Calibre', 'url'=>array('create')),
+	array('label'=>'Listar Cliente', 'url'=>array('index')),
+	array('label'=>'Crear Cliente', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +18,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('calibre-grid', {
+	$.fn.yiiGridView.update('cliente-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -36,7 +36,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'calibre-grid',
+	'id'=>'cliente-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'cssFile'=>Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('ext.bootstrap-theme.widgets.assets')).'/gridview/styles.css',
@@ -44,16 +44,27 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'nombre',
-		'descripcion',
-		array(	'name'=>'producto_did',
-		        'value'=>'$data->producto->nombre',
-			    'filter'=>CHtml::listData(Producto::model()->findAll(), 'id', 'nombre'),),
-		array(	'name'=>'variedad_did',
-		        'value'=>'$data->variedad->nombre',
-			    'filter'=>CHtml::listData(Variedad::model()->findAll(), 'id', 'nombre'),),
+		'apellidos',
+		'fechaNacimiento_f',
+		'rfc',
+		'razonSocial',
+		/*
+		'codigopostal',
+		'calle',
+		'colonia',
+		'telefono',
+		'celular',
+		'email',
+		array(	'name'=>'estado_did',
+		        'value'=>'$data->estado->nombre',
+			    'filter'=>CHtml::listData(Estado::model()->findAll(), 'id', 'nombre'),),
+		array(	'name'=>'municipio_aid',
+		        'value'=>'$data->municipio->nombre',
+			    'filter'=>CHtml::listData(Municipio::model()->findAll(), 'id', 'nombre'),),
 		array(	'name'=>'estatus_did',
 		        'value'=>'$data->estatus->nombre',
 			    'filter'=>CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre'),),
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

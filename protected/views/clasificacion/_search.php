@@ -30,21 +30,17 @@
 	</div>
 
 	<div class="clearfix">
-		<?php echo $form->label($model,'variedad_aid'); ?>
+		<?php echo $form->label($model,'producto_did'); ?>
 		<div class="input">
 			
-			<?php $this->widget('ext.custom.widgets.EJuiAutoCompleteFkField', array(
-					      'model'=>$model, 
-					      'attribute'=>'variedad_aid', 
-					      'sourceUrl'=>Yii::app()->createUrl('variedad/autocompletesearch'), 
-					      'showFKField'=>false,
-					      'relName'=>'variedad', // the relation name defined above
-					      'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
+			<?php echo $form->dropDownList($model,producto_did,CHtml::listData(Producto::model()->findAll(), 'id', 'nombre')); ?>		</div>
+	</div>
 
-					      'options'=>array(
-					          'minLength'=>1, 
-					      ),
-					 )); ?>		</div>
+	<div class="clearfix">
+		<?php echo $form->label($model,'variedad_did'); ?>
+		<div class="input">
+			
+			<?php echo $form->dropDownList($model,variedad_did,CHtml::listData(Variedad::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="clearfix">

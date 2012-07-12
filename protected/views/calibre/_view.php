@@ -9,6 +9,9 @@
 			<?php echo CHtml::encode($data->descripcion); ?>
 		</td>
 		<td>
+			<?php echo CHtml::encode($data->producto->nombre); ?>
+		</td>
+		<td>
 			<?php echo CHtml::encode($data->variedad->nombre); ?>
 		</td>
 		<td>

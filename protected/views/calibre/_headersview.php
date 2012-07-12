@@ -10,7 +10,10 @@
 			<b><?php echo CHtml::encode($data->getAttributeLabel('descripcion')); ?></b>
 		</td>
 		<td >
-			<b><?php echo CHtml::encode($data->getAttributeLabel('variedad_aid')); ?></b>
+			<b><?php echo CHtml::encode($data->getAttributeLabel('producto_did')); ?></b>
+		</td>
+		<td >
+			<b><?php echo CHtml::encode($data->getAttributeLabel('variedad_did')); ?></b>
 		</td>
 		<td >
 			<b><?php echo CHtml::encode($data->getAttributeLabel('estatus_did')); ?></b>

@@ -196,43 +196,23 @@ class VariedadController extends Controller
 	    echo json_encode($result);
 	    Yii::app()->end();
 	}
-	/*
+
 	public function actionDynamicList()
 	{
-	   if(Yii::app()->request->isAjaxRequest)
+	   if(Yii::app()->request->isAjaxRequest && !empty($_POST['producto']) )
 	   {
-	        echo CHtml::listData(Variedad::model()->findAll('producto_aid='.$_POST['producto']), 'id', 'nombre');
-	   }
-	}*/
-	public function actionDynamicList()
-	{
-	   if(Yii::app()->request->isAjaxRequest)
-	   {
-	        echo CHtml::tag('option',array('value'=>''),CHtml::encode('Categoria...'),true);
 	        
-	                echo CHtml::tag('option', array('value'=>1), CHtml::encode('Cat 1'), true);
-	                echo CHtml::tag('option', array('value'=>2), CHtml::encode('Cat 2'), true);
-	                echo CHtml::tag('option', array('value'=>3), CHtml::encode('Cat 3'), true);
-	       
+			$data=CHtml::listData(Variedad::model()->findAll(array('condition'=>'producto_aid='.$_POST['producto'], 'order'=>'nombre')), 'id', 'nombre');
+			    foreach($data as $value=>$name)
+			    {
+			        echo CHtml::tag('option',
+			                   array('value'=>$value),CHtml::encode($name),true);
+			    }
 	   }
+		else{echo CHtml::tag('option',
+                   array(),CHtml::encode('Seleccione una Variedad'),true);}
 	}
 
-	public function getCategory($id)
-	{
-	        $options=null;
-	        if($id>0)
-	        {
-	               
-	                        $options[1]='Cat 1';
-	                        $options[2]='Cat 2';
-	                        $options[3]='Cat 3';
-	               
-	                        $options[4]='Cat 4';
-	                        $options[5]='Cat 5';
-	                        $options[6]='Cat 6';
-	                
-	                return $options;
-	        }else
-	                return array();
-	}
+
+
 }

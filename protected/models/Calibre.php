@@ -7,13 +7,15 @@
  * @property integer $id
  * @property string $nombre
  * @property string $descripcion
- * @property integer $variedad_aid
+ * @property integer $producto_did
+ * @property integer $variedad_did
  * @property integer $estatus_did
  *
  * The followings are the available model relations:
  * @property BeneficioDetalle[] $beneficioDetalles
- * @property Estatus $estatus
+ * @property Producto $producto
  * @property Variedad $variedad
+ * @property Estatus $estatus
  * @property SalidaDetalle[] $salidaDetalles
  */
 class Calibre extends CActiveRecord
@@ -43,13 +45,13 @@ class Calibre extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, variedad_aid, estatus_did', 'required'),
-			array('variedad_aid, estatus_did', 'numerical', 'integerOnly'=>true),
+			array('nombre, producto_did, variedad_did, estatus_did', 'required'),
+			array('producto_did, variedad_did, estatus_did', 'numerical', 'integerOnly'=>true),
 			array('nombre', 'length', 'max'=>150),
 			array('descripcion', 'length', 'max'=>250),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nombre, descripcion, variedad_aid, estatus_did', 'safe', 'on'=>'search'),
+			array('id, nombre, descripcion, producto_did, variedad_did, estatus_did', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,8 +64,9 @@ class Calibre extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'beneficioDetalles' => array(self::HAS_MANY, 'BeneficioDetalle', 'calibre_aid'),
+			'producto' => array(self::BELONGS_TO, 'Producto', 'producto_did'),
+			'variedad' => array(self::BELONGS_TO, 'Variedad', 'variedad_did'),
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
-			'variedad' => array(self::BELONGS_TO, 'Variedad', 'variedad_aid'),
 			'salidaDetalles' => array(self::HAS_MANY, 'SalidaDetalle', 'calibre_did'),
 		);
 	}
@@ -77,7 +80,8 @@ class Calibre extends CActiveRecord
 			'id' => 'ID',
 			'nombre' => 'Nombre',
 			'descripcion' => 'Descripcion',
-			'variedad_aid' => 'Variedad',
+			'producto_did' => 'Producto',
+			'variedad_did' => 'Variedad',
 			'estatus_did' => 'Estatus',
 		);
 	}
@@ -96,7 +100,8 @@ class Calibre extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
-		$criteria->compare('variedad_aid',$this->variedad_aid);
+		$criteria->compare('producto_did',$this->producto_did);
+		$criteria->compare('variedad_did',$this->variedad_did);
 		$criteria->compare('estatus_did',$this->estatus_did);
 
 		return new CActiveDataProvider($this, array(
