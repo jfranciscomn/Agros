@@ -31,7 +31,7 @@ class EjidoController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','admin','delete'),
+				'actions'=>array('index','view','create','update','admin','delete','dynamicList'),
 				'users'=>array('@'),
 			),
 			/*
@@ -195,5 +195,22 @@ class EjidoController extends Controller
 	    }
 	    echo json_encode($result);
 	    Yii::app()->end();
+	}
+	public function actionDynamicList()
+	{
+	   if(Yii::app()->request->isAjaxRequest && !empty($_POST['municipio']) )
+	   {
+	        
+			$data=CHtml::listData(Ejido::model()->findAll(array('condition'=>'municipio_did='.$_POST['municipio'], 'order'=>'nombre')), 'id', 'nombre');
+			echo CHtml::tag('option',
+	                   array(),CHtml::encode('Seleccione un Ejido'),true);
+			    foreach($data as $value=>$name)
+			    {
+			        echo CHtml::tag('option',
+			                   array('value'=>$value),CHtml::encode($name),true);
+			    }
+	   }
+		else{echo CHtml::tag('option',
+                   array(),CHtml::encode('Seleccione un Ejido'),true);}
 	}
 }

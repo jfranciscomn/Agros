@@ -61,7 +61,7 @@ return array(
 			),
 		),
 		//universidad
-		'db'=>array(
+	/*	'db'=>array(
 		      'connectionString' => 'mysql:host=192.168.5.103;dbname=agros',
 		      'username' => 'agros',
 		      'password' => '123qwe',
@@ -69,16 +69,16 @@ return array(
 			  'enableProfiling'=>true,
 			  'enableParamLogging'=>true,
 		
-		    ),
+		    ),*/
 		
 		//c4
-		/*
+		
 		'db'=>array(
 			'connectionString'=>'mysql:host=127.0.0.1;dbname=agros',
 			'username'=>'root',
 			'password'=>'123qwe',
 			'charset'=>'utf8',
-		),*/
+		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',

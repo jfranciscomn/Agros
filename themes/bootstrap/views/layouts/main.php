@@ -45,7 +45,7 @@
 										),
 				
 					);
-					$items[]=array('label'=>'Clientes', 'url'=>array('/cliente/index'),);
+					
 					$items[]=array('label'=>'Salidas',
 				      'url'=>'#',
 				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
@@ -58,6 +58,7 @@
 										),
 				
 					);
+					$items[]=array('label'=>'Clientes', 'url'=>array('/cliente/index'),);
 					$items[]=array('label'=>'Productos',
 				      'url'=>'#',
 				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),

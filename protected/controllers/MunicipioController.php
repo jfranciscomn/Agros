@@ -203,6 +203,8 @@ class MunicipioController extends Controller
 	   {
 	        
 			$data=CHtml::listData(Municipio::model()->findAll(array('condition'=>'estado_did='.$_POST['estado'], 'order'=>'nombre')), 'id', 'nombre');
+			echo CHtml::tag('option',
+	                   array(),CHtml::encode('Seleccione un Municipio'),true);
 			    foreach($data as $value=>$name)
 			    {
 			        echo CHtml::tag('option',

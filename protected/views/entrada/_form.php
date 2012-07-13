@@ -185,7 +185,8 @@
 		<?php echo $form->labelEx($model,'producto_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,'producto_did',CHtml::listData(Producto::model()->findAll(), 'id', 'nombre')); ?>			<?php echo $form->error($model,'producto_did'); ?>
+			<?php echo $form->dropDownList($model,'producto_did',CHtml::listData(Producto::model()->findAll(), 'id', 'nombre')); ?>			
+			<?php echo $form->error($model,'producto_did'); ?>
 		</div>
 	</div>
 
@@ -220,26 +221,34 @@
 		<?php echo $form->labelEx($model,'estado_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,'estado_did',CHtml::listData(Estado::model()->findAll(), 'id', 'nombre')); ?>			<?php echo $form->error($model,'estado_did'); ?>
+			<?php echo $form->dropDownList($model,'estado_did',CHtml::listData(Estado::model()->findAll(array('order'=>'nombre')), 'id', 'nombre'),array(
+		        'empty'=>'Seleccione un Estado', 
+		        'ajax' => array(
+		                   'type'=>'POST',
+		                   'url'=>CController::createUrl('municipio/dynamicList'),
+		                   'update'=>'#Entrada_municipio_aid',
+		                   'data'=>array('estado'=>'js:this.value'),
+		                ),
+		        
+		   )); ?>			
+			<?php echo $form->error($model,'estado_did'); ?>
 		</div>
 	</div>
-
+	
 	<div class="<?php echo $form->fieldClass($model, 'municipio_aid'); ?>">
 		<?php echo $form->labelEx($model,'municipio_aid'); ?>
 		<div class="input">
-			
-			<?php $this->widget('ext.custom.widgets.EJuiAutoCompleteFkField', array(
-					      'model'=>$model, 
-					      'attribute'=>'municipio_aid', 
-					      'sourceUrl'=>Yii::app()->createUrl('municipio/autocompletesearch'), 
-					      'showFKField'=>false,
-					      'relName'=>'municipio', // the relation name defined above
-					      'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
 
-					      'options'=>array(
-					          'minLength'=>1, 
-					      ),
-					 )); ?>			<?php echo $form->error($model,'municipio_aid'); ?>
+			<?php echo $form->dropDownList($model,'municipio_aid',CHtml::listData(array(), 'id', 'nombre'),array(
+				'empty' => 'Seleccione un Municipio',  
+				'disabled'=>false,
+				'ajax' => array(
+		                   'type'=>'POST',
+		                   'url'=>CController::createUrl('ejido/dynamicList'),
+		                   'update'=>'#Entrada_ejido_did',
+		                   'data'=>array('municipio'=>'js:this.value'),
+		                ),)); ?>			
+			<?php echo $form->error($model,'municipio_aid'); ?>
 		</div>
 	</div>
 
@@ -247,7 +256,8 @@
 		<?php echo $form->labelEx($model,'ejido_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,'ejido_did',CHtml::listData(Ejido::model()->findAll(), 'id', 'nombre')); ?>			<?php echo $form->error($model,'ejido_did'); ?>
+			<?php echo $form->dropDownList($model,'ejido_did',CHtml::listData(array(), 'id', 'nombre'),array('empty' => 'Seleccione un Ejido',)); ?>			
+			<?php echo $form->error($model,'ejido_did'); ?>
 		</div>
 	</div>
 

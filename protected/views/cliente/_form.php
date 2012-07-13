@@ -147,7 +147,6 @@
 		                   'update'=>'#Cliente_municipio_aid',
 		                   'data'=>array('estado'=>'js:this.value'),
 		                ),
-		        'style'=>'width:30%',
 		   )); ?>			
 			<?php echo $form->error($model,'estado_did'); ?>
 		</div>
@@ -157,7 +156,7 @@
 		<?php echo $form->labelEx($model,'municipio_aid'); ?>
 		<div class="input">
 
-			<?php echo $form->dropDownList($model,'municipio_aid',CHtml::listData(array(), 'id', 'nombre'),array('empty' => 'Seleccione un Municipio', 'style'=>'width:30%', 'disabled'=>false)); ?>			
+			<?php echo $form->dropDownList($model,'municipio_aid',CHtml::listData(array(), 'id', 'nombre'),array('empty' => 'Seleccione un Municipio', 'disabled'=>false)); ?>			
 			<?php echo $form->error($model,'municipio_aid'); ?>
 		</div>
 	</div>
