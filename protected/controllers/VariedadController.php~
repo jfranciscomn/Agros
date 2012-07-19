@@ -199,18 +199,18 @@ class VariedadController extends Controller
 
 	public function actionDynamicList()
 	{
-		echo CHtml::tag('option',array(),CHtml::encode('Seleccione una Variedad'),true);
-	   	if(Yii::app()->request->isAjaxRequest && !empty($_POST['producto']) )
-	   	{
-
+	   if(Yii::app()->request->isAjaxRequest && !empty($_POST['producto']) )
+	   {
+	        
 			$data=CHtml::listData(Variedad::model()->findAll(array('condition'=>'producto_aid='.$_POST['producto'], 'order'=>'nombre')), 'id', 'nombre');
-			foreach($data as $value=>$name)
-			{
-				echo CHtml::tag('option',
-				array('value'=>$value),CHtml::encode($name),true);
-			}
-		}
-
+			    foreach($data as $value=>$name)
+			    {
+			        echo CHtml::tag('option',
+			                   array('value'=>$value),CHtml::encode($name),true);
+			    }
+	   }
+		else{echo CHtml::tag('option',
+                   array(),CHtml::encode('Seleccione una Variedad'),true);}
 	}
 
 

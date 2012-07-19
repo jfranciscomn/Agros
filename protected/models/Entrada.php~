@@ -120,7 +120,7 @@ class Entrada extends CActiveRecord
 			'taraCamion' => 'Tara Camion',
 			'pesoNeto' => 'Peso Neto',
 			'impuresas' => 'Impuresas',
-			'pesoNetoAnalizado' => 'Peso Neto A.',
+			'pesoNetoAnalizado' => 'Peso Neto Analizado',
 			'saldo' => 'Saldo',
 			'cliente_aid' => 'Cliente',
 			'producto_did' => 'Producto',

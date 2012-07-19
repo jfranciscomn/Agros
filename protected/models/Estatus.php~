@@ -129,7 +129,7 @@ class Estatus extends CActiveRecord
 		));
 	}
 	
-	public function getActive()
+	public static function getActive()
 	{
 		$estatus = Estatus::model()->find(array('condition'=>'nombre=\'Activo\''));
 		return $estatus;
