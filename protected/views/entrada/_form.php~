@@ -319,42 +319,20 @@
 		</div>
 	</div>
 
-	
-
-	
-
-
-	
-
-	
-
-	<div class="<?php echo $form->fieldClass($model, 'saldo'); ?>">
-		<?php echo $form->labelEx($model,'saldo'); ?>
-		<div class="input">
-			
-			<?php echo $form->textField($model,'saldo'); ?>
-			<?php echo $form->error($model,'saldo'); ?>
-		</div>
-	</div>
-
-	
-	<div class="<?php echo $form->fieldClass($model, 'estatus_did'); ?>">
-		<?php echo $form->labelEx($model,'estatus_did'); ?>
-		<div class="input">
-			<?php echo $form->dropDownList($model,'estatus_did',CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>			<?php echo $form->error($model,'estatus_did'); ?>
-		</div>
-	</div>
-
-	<div class="<?php echo $form->fieldClass($model, 'temporada_did'); ?>">
-		<?php echo $form->labelEx($model,'temporada_did'); ?>
-		<div class="input">
-			
-			<?php echo $form->dropDownList($model,'temporada_did',CHtml::listData(Temporada::model()->findAll(), 'id', 'nombre')); ?>			<?php echo $form->error($model,'temporada_did'); ?>
-		</div>
-	</div>
 
 	<div class="actions">
 		<?php echo BHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
+	</div>
+	<div style="visibility:hidden">
+		
+			
+			<?php echo $form->textField($model,'saldo'); ?>
+			<?php echo $form->error($model,'saldo'); ?>
+			<?php echo $form->textField($model,'estatus_did'); ?>
+			<?php echo $form->error($model,'estatus_did'); ?>
+			<?php echo $form->textField($model,'temporada_did'); ?>
+			<?php echo $form->error($model,'temporada_did'); ?>
+	
 	</div>
 
 <?php $this->endWidget(); ?>

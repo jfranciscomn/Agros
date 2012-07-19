@@ -69,10 +69,7 @@ class EntradaController extends Controller
 
 		if(isset($_POST['Entrada']))
 		{
-			$model->attributes = $_POST['Entrada'];
-			$model->estatus_did = Estatus::model()->active->id;
-			$model->temporada_did = Temporada::model()->active->id;
-			$model->saldo = $model->pesoNeto;
+			$model->attributes=$_POST['Entrada'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
