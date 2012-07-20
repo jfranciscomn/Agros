@@ -186,14 +186,14 @@ class EntradaController extends Controller
 	    if (!empty($q))
 	    {
 			$criteria=new CDbCriteria;
-			$criteria->select=array('id', "CONCAT_WS(' ',nombre) as nombre");
-			$criteria->condition="lower(CONCAT_WS(' ',nombre)) like lower(:nombre) ";
-			$criteria->params=array(':nombre'=>$q);
+			$criteria->select=array('id', "CONCAT_WS(' ',codigo) as codigo");
+			$criteria->condition="lower(CONCAT_WS(' ',codigo)) like lower(:codigo) ";
+			$criteria->params=array(':codigo'=>$q);
 			$criteria->limit='10';
-	       	$cursor = Entrada::model()->findAll($criteria);
+			$cursor = Entrada::model()->findAll($criteria);
 			foreach ($cursor as $valor)	
-				$result[]=Array('label' => $valor->nombre,  
-				                'value' => $valor->nombre,
+				$result[]=Array('label' => $valor->codigo,  
+				                'value' => $valor->codigo,
 				                'id' => $valor->id, );
 	    }
 	    echo json_encode($result);

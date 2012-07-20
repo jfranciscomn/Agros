@@ -133,7 +133,6 @@ function hideEmptyHeaders(){
                     <tr>
                         <td colspan="4">
                             <div class="add">'New</div>
-                            <div style='display:none'>
                             <textarea class="template" rows="0" cols="0">
                                 <tr class="templateContent">
                                     <td>
@@ -145,7 +144,6 @@ function hideEmptyHeaders(){
                                     </td>
                                 </tr>
                             </textarea>
-                            </div>
                         </td>
                     </tr>
                 </tfoot>
