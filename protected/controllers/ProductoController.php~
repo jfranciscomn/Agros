@@ -203,5 +203,4 @@ class ProductoController extends Controller
 	    echo json_encode($result);
 	    Yii::app()->end();
 	}
-	
 }

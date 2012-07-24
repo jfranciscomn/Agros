@@ -49,6 +49,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="span6">
 				<div class="<?php echo $form->fieldClass($model, 'entrada_aid'); ?>">
 					<?php echo $form->labelEx($model,'entrada_aid'); ?>
@@ -60,14 +61,53 @@
 								      'sourceUrl'=>Yii::app()->createUrl('entrada/autocompletesearch'), 
 								      'showFKField'=>false,
 								      'relName'=>'entrada', // the relation name defined above
-								      'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
-
+								      'displayAttr'=>'codigo',  // attribute or pseudo-attribute to display
 								      'options'=>array(
-									  'minLength'=>1, 
+									'minLength'=>1, 
+									'select'=>"$('#prueba').val('asdfas');
+											
+											$('#productorlbl').html(ui.item.productor);
+											$('#productolbl').html(ui.item.producto);
+											$('#variedadlbl').html(ui.item.variedad);
+											$('#saldolbl').html(ui.item.saldo);
+											jQuery.ajax(
+											{
+											'type':'POST',
+											'url':'".Yii::app()->createUrl('variedad/dynamicClacal')."',
+											'data':{'entrada':this.value},
+											'cache':false,
+											'success':function(html){
+													jQuery(\".clacal\").html(html);
+													//alert(html);
+													jQuery(\"#temporal\").val(html);
+													//alert(html);
+													//alert(jQuery(\"#temporal\"));
+													//alert(jQuery(\"#temporal\").val());
+													}
+											});return false;",
 								      ),
-								 )); ?>			<?php echo $form->error($model,'entrada_aid'); ?>
+								 )); ?>
+								<?php echo $form->error($model,'entrada_aid'); ?>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class='row-fluid '>
+			<div class="span3">
+				<h5 > Productor </h5>
+				<div id='productorlbl'>  </div>
+			</div>
+			<div class="span3">
+				<h5 > Producto </h5>
+				<div id='productolbl'>  </div>
+			</div>
+			<div class="span3">
+				<h5 > variedad </h5>
+				<div id='variedadlbl'>  </div>
+			</div>
+			<div class="span3">
+				<h5 > Cantidad </h5>
+				<div id='saldolbl'>  </div>
 			</div>
 		</div>
 	</div>
@@ -92,21 +132,29 @@ $.format = function(source, params) {
 	$.each(params, function(i, n) {
 		source = source.replace(new RegExp("\\{" + i + "\\}", "g"), n);
 	});
+	source = source.replace(new RegExp('<option value=\"\"></option>','g'),$("#temporal").val());
 	return source;
 };
 
 jQuery(document).ready(function(){
 	hideEmptyHeaders();
 	$("#adddetalle").click(function(){
+
 		var template = jQuery.format(jQuery.trim($(this).siblings(".template").val()));
+
 		var place = $(this).parents(".templateFrame:first").children(".templateTarget");
 		
 		var i = place.find(".rowIndex").length>0 ? parseInt(place.find(".rowIndex:last").val())+1 : 0;
 		
-		$(template(i)).appendTo(place);
-		place.siblings('.templateHead').show()
-		// start specific commands
 
+		alert(template(i));
+		$(template(i)).appendTo(place);
+		
+		place.siblings('.templateHead').show()
+		
+		//$("#row["+i+"]").find("clacal").html($("#temporal").val());
+		//alert($("#row["+i+"]").find(".clacal:last"));
+		//alert($("#row["+i+"]").find(".clacal:last").html());
 		// end specific commands
 	});
 
@@ -145,10 +193,11 @@ function hideEmptyHeaders(){
                 </thead>
                 <tfoot>
                     <tr>
-                        <td colspan="2">
-                            <div id='adddetalle' class="btn btn-primary">Agregar </div>
-				<textarea class="template" rows="0" cols="0" he style="height:0;visibility:hidden">
-					<tr class='templateContent'>
+                        <td colspan='2'  style='text-align:right;'>
+                            <div id='adddetalle' class="btn btn-primary" >Agregar </div>
+                            	<input id='temporal' type='hidden'/>
+				<textarea class="template" rows="0" cols="0" he style="width:0;height:0;visibility:hidden">
+					<tr id='row[{0}]' class='templateContent'>
 						<td>
 							<div class='row-fluid '>
 								<div class="span4">
@@ -159,8 +208,8 @@ function hideEmptyHeaders(){
 								</div>
 								<div class="span4">
 									<div class="input">
-										<?php echo $form->textField($detalle,'cantidad'); ?>
-										<?php echo $form->error($detalle,'cantidad'); ?>
+										<?php echo$form->dropDownList($detalle,'clasificacion_aid',CHtml::listData(array(), 'id', 'nombre'),array('class'=>'clacal','empty'=>'')); ?>
+										<?php echo $form->error($detalle,'clasificacion_aid'); ?>
 									</div>
 								</div>
 								<div class="span4">

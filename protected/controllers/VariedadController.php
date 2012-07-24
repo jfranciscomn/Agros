@@ -31,7 +31,7 @@ class VariedadController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','admin','delete','dynamicList'),
+				'actions'=>array('index','view','create','update','admin','delete','dynamicList','dynamicClacal'),
 				'users'=>array('@'),
 			),
 			/*
@@ -211,6 +211,43 @@ class VariedadController extends Controller
 			}
 		}
 
+	}
+	
+	public function actionDynamicClacal()
+	{
+		if(Yii::app()->request->isAjaxRequest && !empty($_POST['entrada']))
+		{
+			$par=$_POST['entrada'];
+			$entrada = Entrada::model()->find(array('condition'=>'codigo='.$par));
+			if(!empty($entrada))
+			{
+				
+				if($entrada->producto->clasificacion)
+				{
+					echo CHtml::tag('option',array(),CHtml::encode('Seleccione una Clasificacion'),true);
+				
+					$data=CHtml::listData(Clasificacion::model()->findAll(array('condition'=>'variedad_did='.$entrada->variedad->id, 'order'=>'nombre')), 'id', 'nombre');
+					
+				}
+					
+				
+				else if ($entrada->producto->calibre)
+				{
+					echo CHtml::tag('option',array(),CHtml::encode('Seleccione una Calibre'),true);
+				
+					$data=CHtml::listData(Calibre::model()->findAll(array('condition'=>'variedad_did='.$entrada->variedad->id, 'order'=>'nombre')), 'id', 'nombre');
+					
+				}
+				
+				foreach($data as $value=>$name)
+				{
+					echo CHtml::tag('option',
+						array('value'=>$value),CHtml::encode($name),true);
+				}
+			
+			}
+		}
+	
 	}
 
 

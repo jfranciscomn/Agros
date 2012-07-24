@@ -186,7 +186,7 @@ class EntradaController extends Controller
 	    if (!empty($q))
 	    {
 			$criteria=new CDbCriteria;
-			$criteria->select=array('id', "CONCAT_WS(' ',codigo) as codigo");
+			//$criteria->select=array('id', "CONCAT_WS(' ',codigo) as codigo");
 			$criteria->condition="lower(CONCAT_WS(' ',codigo)) like lower(:codigo) ";
 			$criteria->params=array(':codigo'=>$q);
 			$criteria->limit='10';
@@ -194,6 +194,10 @@ class EntradaController extends Controller
 			foreach ($cursor as $valor)	
 				$result[]=Array('label' => $valor->codigo,  
 				                'value' => $valor->codigo,
+				                'productor'=> $valor->cliente->nombre,
+				                'producto'=>$valor->producto->nombre,
+				                'variedad' => $valor->variedad->nombre,
+				                'saldo'=>$valor->saldo . ' ' . $valor->unidad->nombre,
 				                'id' => $valor->id, );
 	    }
 	    echo json_encode($result);
