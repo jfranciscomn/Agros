@@ -76,6 +76,7 @@
 
 <script type="text/javascript">
 $.format = function(source, params) {
+	//source= "";
 	if ( arguments.length == 1 ) 
 		return function() {
 			var args = $.makeArray(arguments);
@@ -93,12 +94,15 @@ $.format = function(source, params) {
 	});
 	return source;
 };
+
 jQuery(document).ready(function(){
 	hideEmptyHeaders();
-	$(".add").click(function(){
+	$("#adddetalle").click(function(){
 		var template = jQuery.format(jQuery.trim($(this).siblings(".template").val()));
 		var place = $(this).parents(".templateFrame:first").children(".templateTarget");
-		var i = place.find(".rowIndex").length>0 ? place.find(".rowIndex").max()+1 : 0;
+		
+		var i = place.find(".rowIndex").length>0 ? parseInt(place.find(".rowIndex:last").val())+1 : 0;
+		
 		$(template(i)).appendTo(place);
 		place.siblings('.templateHead').show()
 		// start specific commands
@@ -119,33 +123,61 @@ function hideEmptyHeaders(){
 
 
 <div class="complex">
-        
-        <div class="panel">
-            <table class="templateFrame grid" cellspacing="0">
+        <h3> Detalles </h3>
+        <div class="well">
+            <table class="templateFrame grid" cellspacing="0" width='100%'>
                 <thead class="templateHead">
                     <tr>
                         <td>
-                          asdfsdf
+				<div class='row-fluid '>
+					<div class="span4">
+						<h4><?php echo $detalle->getAttributeLabel('cantidad'); ?> </h4>
+					</div>
+					<div class="span4">
+						<h4><?php echo $detalle->getAttributeLabel('clasificacion_aid'); ?> </h4>
+					</div>
+					<div class="span4">
+						<h4><?php echo $detalle->getAttributeLabel('unidad_did'); ?> </h4>
+					</div>
+					
                         </td>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <td colspan="4">
-                            <div class="add">'New</div>
-                            <div style='display:none'>
-                            <textarea class="template" rows="0" cols="0">
-                                <tr class="templateContent">
-                                    <td>
-                                       dfasdfasdf
-                                    </td>
-                                    <td>
-                                        <div class="remove"><?php echo Yii::t('ui','Remove');?></div>
-                                        <input type="hidden" class="rowIndex" value="{0}" />
-                                    </td>
-                                </tr>
-                            </textarea>
-                            </div>
+                        <td colspan="2">
+                            <div id='adddetalle' class="btn btn-primary">Agregar </div>
+				<textarea class="template" rows="0" cols="0" he style="height:0;visibility:hidden">
+					<tr class='templateContent'>
+						<td>
+							<div class='row-fluid '>
+								<div class="span4">
+									<div class="input">
+										<?php echo $form->textField($detalle,'cantidad'); ?>
+										<?php echo $form->error($detalle,'cantidad'); ?>
+									</div>
+								</div>
+								<div class="span4">
+									<div class="input">
+										<?php echo $form->textField($detalle,'cantidad'); ?>
+										<?php echo $form->error($detalle,'cantidad'); ?>
+									</div>
+								</div>
+								<div class="span4">
+									<div class="input">
+										<?php echo $form->dropDownList($detalle,'unidad_did',CHtml::listData(Unidad::model()->findAll(), 'id', 'nombre')); ?>			
+										<?php echo $form->error($detalle,'unidad_did'); ?>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td align="right">
+							
+							<div class='remove' ><i class="icon-remove" /></div>
+							<input type='hidden' class='rowIndex' value='{0}'></input>
+						</td>
+					</tr>
+				</textarea>
                         </td>
                     </tr>
                 </tfoot>
@@ -157,21 +189,7 @@ function hideEmptyHeaders(){
     </div><!--complex-->
 
 
-	<div class="<?php echo $form->fieldClass($model, 'estatus_did'); ?>">
-		<?php echo $form->labelEx($model,'estatus_did'); ?>
-		<div class="input">
-			
-			<?php echo $form->dropDownList($model,'estatus_did',CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>			<?php echo $form->error($model,'estatus_did'); ?>
-		</div>
-	</div>
 
-	<div class="<?php echo $form->fieldClass($model, 'temporada_did'); ?>">
-		<?php echo $form->labelEx($model,'temporada_did'); ?>
-		<div class="input">
-			
-			<?php echo $form->dropDownList($model,'temporada_did',CHtml::listData(Temporada::model()->findAll(), 'id', 'nombre')); ?>			<?php echo $form->error($model,'temporada_did'); ?>
-		</div>
-	</div>
 
 	<div class="actions">
 		<?php echo BHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>

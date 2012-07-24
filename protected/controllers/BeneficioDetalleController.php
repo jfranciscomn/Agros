@@ -1,6 +1,6 @@
 <?php
 
-class BeneficioController extends Controller
+class BeneficioDetalleController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,22 +62,20 @@ class BeneficioController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Beneficio;
-		$detalle = new BeneficioDetalle;
-		
+		$model=new BeneficioDetalle;
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Beneficio']))
+		if(isset($_POST['BeneficioDetalle']))
 		{
-			$model->attributes=$_POST['Beneficio'];
+			$model->attributes=$_POST['BeneficioDetalle'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
-			'detalle'=>$detalle,
 		));
 	}
 
@@ -93,9 +91,9 @@ class BeneficioController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Beneficio']))
+		if(isset($_POST['BeneficioDetalle']))
 		{
-			$model->attributes=$_POST['Beneficio'];
+			$model->attributes=$_POST['BeneficioDetalle'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -130,7 +128,7 @@ class BeneficioController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Beneficio');
+		$dataProvider=new CActiveDataProvider('BeneficioDetalle');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -141,10 +139,10 @@ class BeneficioController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Beneficio('search');
+		$model=new BeneficioDetalle('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Beneficio']))
-			$model->attributes=$_GET['Beneficio'];
+		if(isset($_GET['BeneficioDetalle']))
+			$model->attributes=$_GET['BeneficioDetalle'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -158,7 +156,7 @@ class BeneficioController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Beneficio::model()->findByPk((int)$id);
+		$model=BeneficioDetalle::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -170,7 +168,7 @@ class BeneficioController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='beneficio-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='beneficio-detalle-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -189,7 +187,7 @@ class BeneficioController extends Controller
 			$criteria->condition="lower(CONCAT_WS(' ',nombre)) like lower(:nombre) ";
 			$criteria->params=array(':nombre'=>$q);
 			$criteria->limit='10';
-	       	$cursor = Beneficio::model()->findAll($criteria);
+	       	$cursor = BeneficioDetalle::model()->findAll($criteria);
 			foreach ($cursor as $valor)	
 				$result[]=Array('label' => $valor->nombre,  
 				                'value' => $valor->nombre,
