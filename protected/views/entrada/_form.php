@@ -111,8 +111,13 @@
 			<div class="<?php echo $form->fieldClass($model, 'variedad_aid'); ?>">
 				<?php echo $form->labelEx($model,'variedad_aid'); ?>
 				<div class="input">
-			
-					<?php echo $form->dropDownList($model,'variedad_aid',CHtml::listData(array(), 'id', 'nombre'),array('empty' => 'Seleccione una Variedad',)); ?>			
+					
+					<?php 
+						$variedadls =CHtml::listData(array(), 'id', 'nombre');
+						if(!empty($model->variedad_aid))
+							$variedadls =CHtml::listData(Variedad::model()->findAll(array('condition'=>'producto_aid='.$model->producto_did)), 'id', 'nombre');
+						echo $form->dropDownList($model,'variedad_aid',$variedadls,array('empty' => 'Seleccione una Variedad',)); 
+					?>			
 					<?php echo $form->error($model,'variedad_aid'); ?>
 				</div>
 			</div>
@@ -158,8 +163,15 @@
 				<div class="<?php echo $form->fieldClass($model, 'municipio_aid'); ?>">
 					<?php echo $form->labelEx($model,'municipio_aid'); ?>
 					<div class="input">
-
-						<?php echo $form->dropDownList($model,'municipio_aid',CHtml::listData(array(), 'id', 'nombre'),array(
+						
+						<?php 
+						$municipiols =CHtml::listData(array(), 'id', 'nombre');
+						if(!empty($model->estado_did))
+							$municipiols =CHtml::listData(Municipio::model()->findAll(array('condition'=>'estado_did='.$model->estado_did)), 'id', 'nombre');
+						
+						echo $form->dropDownList($model,'municipio_aid',
+							$municipiols ,
+							array(
 							'empty' => 'Seleccione un Municipio',  
 							'disabled'=>false,
 							'ajax' => array(
@@ -179,7 +191,14 @@
 					<?php echo $form->labelEx($model,'ejido_did'); ?>
 					<div class="input">
 			
-						<?php echo $form->dropDownList($model,'ejido_did',CHtml::listData(array(), 'id', 'nombre'),array('empty' => 'Seleccione un Ejido',)); ?>			
+						<?php 
+							$ejidols =CHtml::listData(array(), 'id', 'nombre');
+							if(!empty($model->municipio_aid))
+								$ejidols =CHtml::listData(Ejido::model()->findAll(array('condition'=>'municipio_did='.$model->municipio_aid)), 'id', 'nombre');
+						
+							echo $form->dropDownList($model,'ejido_did',
+							$ejidols,
+							array('empty' => 'Seleccione un Ejido',)); ?>			
 						<?php echo $form->error($model,'ejido_did'); ?>
 					</div>
 				</div>
