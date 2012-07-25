@@ -108,11 +108,4 @@ class Calibre extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
-	public function linkedAttributes()
-	{
-		return array(
-			'estado_did'=>'municipio_did',
-		);
-	}
 }
