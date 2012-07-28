@@ -46,8 +46,10 @@ class Temporada extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, fechaIncial_f, fechaFinal_f,estatus_did', 'required'),
+			array('nombre, fechaIncial_f, estatus_did', 'required'),
 			array('estatus_did', 'numerical', 'integerOnly'=>true),
+			array('estatus_did','dropdownfield'),
+			array('fechaIncial_f, fechaFinal_f','datefield'),
 			array('nombre', 'length', 'max'=>150),
 			array('fechaFinal_f', 'safe'),
 			// The following rule is used by search().
@@ -72,6 +74,46 @@ class Temporada extends CActiveRecord
 			'salidaDirectas' => array(self::HAS_MANY, 'SalidaDirecta', 'temporada_did'),
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->$beneficios as $beneficiosn )
+			$beneficiosn->deleteCascade();
+
+		foreach ($this->$configuracions as $configuracionsn )
+			$configuracionsn->deleteCascade();
+
+		foreach ($this->$entradas as $entradasn )
+			$entradasn->deleteCascade();
+
+		foreach ($this->$precios as $preciosn )
+			$preciosn->deleteCascade();
+
+		foreach ($this->$salidas as $salidasn )
+			$salidasn->deleteCascade();
+
+		foreach ($this->$salidaDirectas as $salidaDirectasn )
+			$salidaDirectasn->deleteCascade();
+
+		$this->delete();
 	}
 
 	/**
@@ -108,12 +150,5 @@ class Temporada extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-	
-	public static function getActive()
-	{
-		$estatus = Estatus::getActive()->active;
-		$configuracion=Configuracion::model()->find(array('condition'=>'estatus_did='.$status-id));
-		return $configuracion->temporada;
 	}
 }

@@ -1,29 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "temporada".
+ * This is the model class for table "ejido".
  *
- * The followings are the available columns in table 'temporada':
+ * The followings are the available columns in table 'ejido':
  * @property integer $id
  * @property string $nombre
- * @property string $fechaIncial_f
- * @property string $fechaFinal_f
+ * @property integer $municipio_did
  * @property integer $estatus_did
  *
  * The followings are the available model relations:
- * @property Beneficio[] $beneficios
- * @property Configuracion[] $configuracions
- * @property Entrada[] $entradas
- * @property Precio[] $precios
- * @property Salida[] $salidas
- * @property SalidaDirecta[] $salidaDirectas
  * @property Estatus $estatus
+ * @property Municipio $municipio
+ * @property Entrada[] $entradas
  */
-class Temporada extends CActiveRecord
+class Ejido extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return Temporada the static model class
+	 * @return Ejido the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -35,7 +30,7 @@ class Temporada extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'temporada';
+		return 'ejido';
 	}
 
 	/**
@@ -46,15 +41,14 @@ class Temporada extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, fechaIncial_f, estatus_did', 'required'),
-			array('estatus_did', 'numerical', 'integerOnly'=>true),
+			array('nombre, municipio_did, estatus_did', 'required'),
+			array('municipio_did, estatus_did', 'numerical', 'integerOnly'=>true),
 			array('estatus_did','dropdownfield'),
-			array('fechaIncial_f','datefield'),
-			array('nombre', 'length', 'max'=>150),
-			array('fechaFinal_f', 'safe'),
+			array('municipio_did','autocompletefield')
+			array('nombre', 'length', 'max'=>145),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nombre, fechaIncial_f, fechaFinal_f, estatus_did', 'safe', 'on'=>'search'),
+			array('id, nombre, municipio_did, estatus_did', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,13 +60,9 @@ class Temporada extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'beneficios' => array(self::HAS_MANY, 'Beneficio', 'temporada_did'),
-			'configuracions' => array(self::HAS_MANY, 'Configuracion', 'temporada_did'),
-			'entradas' => array(self::HAS_MANY, 'Entrada', 'temporada_did'),
-			'precios' => array(self::HAS_MANY, 'Precio', 'temporada_did'),
-			'salidas' => array(self::HAS_MANY, 'Salida', 'temporada_did'),
-			'salidaDirectas' => array(self::HAS_MANY, 'SalidaDirecta', 'temporada_did'),
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
+			'municipio' => array(self::BELONGS_TO, 'Municipio', 'municipio_did'),
+			'entradas' => array(self::HAS_MANY, 'Entrada', 'ejido_did'),
 		);
 	}
 	
@@ -95,23 +85,8 @@ class Temporada extends CActiveRecord
 	**/
 	public function deleteCascade()
 	{
-		foreach ($this->$beneficios as $beneficiosn )
-			$beneficiosn->deleteCascade();
-
-		foreach ($this->$configuracions as $configuracionsn )
-			$configuracionsn->deleteCascade();
-
 		foreach ($this->$entradas as $entradasn )
 			$entradasn->deleteCascade();
-
-		foreach ($this->$precios as $preciosn )
-			$preciosn->deleteCascade();
-
-		foreach ($this->$salidas as $salidasn )
-			$salidasn->deleteCascade();
-
-		foreach ($this->$salidaDirectas as $salidaDirectasn )
-			$salidaDirectasn->deleteCascade();
 
 		$this->delete();
 	}
@@ -124,8 +99,7 @@ class Temporada extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre' => 'Nombre',
-			'fechaIncial_f' => 'Fecha Incial',
-			'fechaFinal_f' => 'Fecha Final',
+			'municipio_did' => 'Municipio',
 			'estatus_did' => 'Estatus',
 		);
 	}
@@ -143,8 +117,7 @@ class Temporada extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nombre',$this->nombre,true);
-		$criteria->compare('fechaIncial_f',$this->fechaIncial_f,true);
-		$criteria->compare('fechaFinal_f',$this->fechaFinal_f,true);
+		$criteria->compare('municipio_did',$this->municipio_did);
 		$criteria->compare('estatus_did',$this->estatus_did);
 
 		return new CActiveDataProvider($this, array(

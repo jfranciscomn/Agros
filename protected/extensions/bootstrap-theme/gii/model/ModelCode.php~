@@ -87,7 +87,7 @@ class ModelCode extends CCodeModel
 		$this->files=array();
 		$templatePath=$this->templatePath;
 		$this->relations=$this->generateRelations();
-
+		//$this->deleteCascade= $this->generateDeleteCascade();
 		foreach($tables as $table)
 		{
 			$tableName=$this->removePrefix($table->name);
@@ -99,6 +99,7 @@ class ModelCode extends CCodeModel
 				'labels'=>$this->generateLabels($table),
 				'rules'=>$this->generateRules($table),
 				'relations'=>isset($this->relations[$className]) ? $this->relations[$className] : array(),
+				//'deleteCascade'=>isset($this->deleteCascade[$className]) ? $this->deleteCascade[$className] : array(),
 			);
 			$this->files[]=new CCodeFile(
 				Yii::getPathOfAlias($this->modelPath).'/'.$className.'.php',
@@ -188,8 +189,8 @@ class ModelCode extends CCodeModel
 			$label=preg_replace('/\s+/',' ',$label);
 			if(strcasecmp(substr($label,-3),' id')===0)
 				$label=substr($label,0,-3);
-			if(strcasecmp(substr($label,-3),' dt')===0)
-				$label=substr($label,0,-3);
+			if(strcasecmp(substr($label,-2),' f')===0)
+				$label=substr($label,0,-2);
 			else if(strcasecmp(substr($label,-4),' aid')===0)
 				$label=substr($label,0,-4);
 			else if(strcasecmp(substr($label,-4),' did')===0)
@@ -203,12 +204,29 @@ class ModelCode extends CCodeModel
 
 	public function generateRules($table)
 	{
+		if(strcasecmp(substr($fkName,-3),'did')===0 &&  strcasecmp($fkName,'did'))
+			$relationName=rtrim(substr($fkName, 0, -3),'_');
+		else if(strcasecmp(substr($fkName,-3),'aid')===0 && strcasecmp($fkName,'aid'))
+			$relationName=rtrim(substr($fkName, 0, -3),'_');
+		else if(strcasecmp(substr($fkName,-2),'id')===0 && strcasecmp($fkName,'id'))
+			$relationName=rtrim(substr($fkName, 0, -2),'_');
+		else if(strcasecmp(substr($fkName,-2),'f')===0 && strcasecmp($fkName,'f'))
+				$relationName=rtrim(substr($fkName, 0, -2),'_');
+		else
+			$relationName=$fkName;
+			
 		$rules=array();
 		$required=array();
 		$integers=array();
 		$numerical=array();
 		$length=array();
 		$safe=array();
+		
+		//esto es mio y me la pelan
+		$dropdownlist = array();
+		$autocompleatelist =array();
+		$datelist = array();
+		
 		foreach($table->columns as $column)
 		{
 			if($column->autoIncrement)
@@ -222,8 +240,17 @@ class ModelCode extends CCodeModel
 				$numerical[]=$column->name;
 			else if($column->type==='string' && $column->size>0)
 				$length[$column->size][]=$column->name;
+			//else if($column->type==='date' || $column->type==='datetime' || $column->type==='timestamp')
+				//$datelist[]=$column->name;
 			else if(!$column->isPrimaryKey && !$r)
 				$safe[]=$column->name;
+			
+			/*if(strcasecmp(substr($column->name,-4),'_did')===0 )
+				$dropdownlist[]=$column->name;
+			else if(strcasecmp(substr($column->name,-3),'_id')===0)
+				$dropdownlist[]=$column->name;
+			else if(strcasecmp(substr($column->name,-4),'_aid')===0)
+				$autocompleatelist[]=$column->name;*/
 		}
 		if($required!==array())
 			$rules[]="array('".implode(', ',$required)."', 'required')";
@@ -231,6 +258,13 @@ class ModelCode extends CCodeModel
 			$rules[]="array('".implode(', ',$integers)."', 'numerical', 'integerOnly'=>true)";
 		if($numerical!==array())
 			$rules[]="array('".implode(', ',$numerical)."', 'numerical')";
+		if($dropdownlist!==array())
+			$rules[]="array('".implode(', ',$dropdownlist)."','dropdownfield')";
+		if($autocompleatelist!==array())
+			$rules[]="array('".implode(', ',$autocompleatelist)."','autocompletefield')";
+		if($datelist!==array())
+			$rules[]="array('".implode(', ',$autocompleatelist)."','datefield')";
+		
 		if($length!==array())
 		{
 			foreach($length as $len=>$cols)
@@ -332,6 +366,39 @@ class ModelCode extends CCodeModel
 		return $relations;
 	}
 
+	/*protected function generateDeleteCascade()
+	{
+		if(!$this->buildRelations)
+			return array();
+		$relations=array();
+		foreach(Yii::app()->db->schema->getTables() as $table)
+		{
+			if($this->tablePrefix!='' && strpos($table->name,$this->tablePrefix)!==0)
+				continue;
+			$tableName=$table->name;
+			if (!$this->isRelationTable($table))
+			{
+				$className=$this->generateClassName($tableName);
+				foreach ($table->foreignKeys as $fkName => $fkEntry)
+				{
+					$refTable=$fkEntry[0]; // Table name that current fk references to
+					$refKey=$fkEntry[1];   // Key in that table being referenced
+					$refClassName=$this->generateClassName($refTable);
+					
+					$relationType=$table->primaryKey === $fkName ? 'HAS_ONE' : 'HAS_MANY';
+					$relationName=$this->generateRelationName($refTable, $this->removePrefix($tableName,false), $relationType==='HAS_MANY');
+					$i=1;
+					$rawName=$relationName;
+					while(isset($relations[$refClassName][$relationName]))
+						$relationName=$rawName.($i++);
+					$relations[$refClassName][$relationName]="array(self::$relationType, '$className', '$fkName')";
+
+				}
+			}
+		}
+		return $relations;
+	
+	}*/
 	/**
 	 * Checks if the given table is a "many to many" pivot table.
 	 * Their PK has 2 fields, and both of those fields are also FK to other separate tables.
@@ -377,10 +444,12 @@ class ModelCode extends CCodeModel
 			$relationName=rtrim(substr($fkName, 0, -3),'_');
 		else if(strcasecmp(substr($fkName,-2),'id')===0 && strcasecmp($fkName,'id'))
 			$relationName=rtrim(substr($fkName, 0, -2),'_');
-		else if(strcasecmp(substr($fkName,-2),'dt')===0 && strcasecmp($fkName,'dt'))
+		else if(strcasecmp(substr($fkName,-2),'f')===0 && strcasecmp($fkName,'f'))
 				$relationName=rtrim(substr($fkName, 0, -2),'_');
 		else
 			$relationName=$fkName;
+			
+			
 		$relationName[0]=strtolower($relationName);
 
 		if($multiple)

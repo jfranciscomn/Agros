@@ -258,7 +258,9 @@ class CrudCode extends CCodeModel
 						),
 					))";
 			else if(!empty($this->_fieldTypes['datefield'])  &&  in_array($column->name, $this->_fieldTypes['datefield']))
-				return "\$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+				return "if (\$model->$column->name!='') 
+						\$model->$column->name=date('d-m-Y',strtotime(\$model->$column->name));
+					\$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					                                       'model'=>\$model,
 					                                       'attribute'=>'$column->name',
 					                                       'value'=>\$model->$column->name,

@@ -10,8 +10,8 @@
  * @property integer $estatus_did
  *
  * The followings are the available model relations:
- * @property Municipio $municipio
  * @property Estatus $estatus
+ * @property Municipio $municipio
  * @property Entrada[] $entradas
  */
 class Ejido extends CActiveRecord
@@ -43,6 +43,8 @@ class Ejido extends CActiveRecord
 		return array(
 			array('nombre, municipio_did, estatus_did', 'required'),
 			array('municipio_did, estatus_did', 'numerical', 'integerOnly'=>true),
+			array('estatus_did','dropdownfield'),
+			array('municipio_did','autocompletefield'),
 			array('nombre', 'length', 'max'=>145),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -58,10 +60,35 @@ class Ejido extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'municipio' => array(self::BELONGS_TO, 'Municipio', 'municipio_did'),
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
+			'municipio' => array(self::BELONGS_TO, 'Municipio', 'municipio_did'),
 			'entradas' => array(self::HAS_MANY, 'Entrada', 'ejido_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->$entradas as $entradasn )
+			$entradasn->deleteCascade();
+
+		$this->delete();
 	}
 
 	/**
