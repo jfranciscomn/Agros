@@ -64,9 +64,7 @@
 								      'displayAttr'=>'codigo',  // attribute or pseudo-attribute to display
 								      'options'=>array(
 									'minLength'=>1, 
-									'select'=>"$('#prueba').val('asdfas');
-											
-											$('#productorlbl').html(ui.item.productor);
+									'select'=>"											$('#productorlbl').html(ui.item.productor);
 											$('#productolbl').html(ui.item.producto);
 											$('#variedadlbl').html(ui.item.variedad);
 											$('#saldolbl').html(ui.item.saldo);
@@ -78,11 +76,7 @@
 											'cache':false,
 											'success':function(html){
 													jQuery(\".clacal\").html(html);
-													//alert(html);
 													jQuery(\"#temporal\").val(html);
-													//alert(html);
-													//alert(jQuery(\"#temporal\"));
-													//alert(jQuery(\"#temporal\").val());
 													}
 											});return false;",
 								      ),
@@ -95,19 +89,39 @@
 		<div class='row-fluid '>
 			<div class="span3">
 				<h5 > Productor </h5>
-				<div id='productorlbl'>  </div>
+				<div id='productorlbl'> 
+					<?php 
+						if(!empty($entrada->cliente)) 
+							echo $entrada->cliente->nombre; 
+					?> 
+				</div>
 			</div>
 			<div class="span3">
 				<h5 > Producto </h5>
-				<div id='productolbl'>  </div>
+				<div id='productolbl'>  
+					<?php 
+						if(!empty($entrada->producto)) 
+							echo $entrada->producto->nombre; 
+					?> 
+				</div>
 			</div>
 			<div class="span3">
 				<h5 > variedad </h5>
-				<div id='variedadlbl'>  </div>
+				<div id='variedadlbl'> 
+					<?php 
+						if(!empty($entrada->variedad)) 
+							echo $entrada->variedad->nombre; 
+					?>  
+				</div>
 			</div>
 			<div class="span3">
 				<h5 > Cantidad </h5>
-				<div id='saldolbl'>  </div>
+				<div id='saldolbl'> 
+					<?php 
+						if(!empty($entrada->saldo)) 
+							echo $entrada->saldo; 
+					?>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -115,6 +129,8 @@
 
 
 <script type="text/javascript">
+
+
 $.format = function(source, params) {
 	//source= "";
 	if ( arguments.length == 1 ) 
@@ -132,7 +148,22 @@ $.format = function(source, params) {
 	$.each(params, function(i, n) {
 		source = source.replace(new RegExp("\\{" + i + "\\}", "g"), n);
 	});
+	
+
+	$.ajax({
+		url: <?php echo "'".Yii::app()->createUrl('variedad/dynamicClacal') . "'" ?>,
+		data: {'entrada':$('#entrada_aid_lookup').val()},
+		success: function(data) { 
+				//alert(data);
+				$('#temporal').val(data);
+				//alert($('#temporal').val());
+			},
+		type: "POST",
+		async: false
+	});
+				
 	source = source.replace(new RegExp('<option value=\"\"></option>','g'),$("#temporal").val());
+	//alert($("#temporal").val());
 	return source;
 };
 
@@ -141,33 +172,31 @@ jQuery(document).ready(function(){
 	$("#adddetalle").click(function(){
 
 		var template = jQuery.format(jQuery.trim($(this).siblings(".template").val()));
-		template = template.replace("<option value=\"\"></option>",$("#temporal").val());
+
 		var place = $(this).parents(".templateFrame:first").children(".templateTarget");
 		
 		var i = place.find(".rowIndex").length>0 ? parseInt(place.find(".rowIndex:last").val())+1 : 0;
 		
 
-		alert(template(i));
+		
 		$(template(i)).appendTo(place);
 		
 		place.siblings('.templateHead').show()
 		
-		//$("#row["+i+"]").find("clacal").html($("#temporal").val());
-		//alert($("#row["+i+"]").find(".clacal:last"));
-		//alert($("#row["+i+"]").find(".clacal:last").html());
-		// end specific commands
 	});
 
 	$(".remove").live("click", function() {
 		$(this).parents(".templateContent:first").remove();
 		hideEmptyHeaders();
 	});
+	$()
 });
 
 function hideEmptyHeaders(){
 	$('.templateTarget').filter(function(){return $.trim($(this).text())===''}).siblings('.templateHead').hide();
 }
 </script>
+
 
 
 <div class="complex">
@@ -179,13 +208,13 @@ function hideEmptyHeaders(){
                         <td>
 				<div class='row-fluid '>
 					<div class="span4">
-						<h4><?php echo $detalle->getAttributeLabel('cantidad'); ?> </h4>
+						<h4><?php echo $detalle[count($detalle)-1]->getAttributeLabel('cantidad'); ?> </h4>
 					</div>
 					<div class="span4">
-						<h4><?php echo $detalle->getAttributeLabel('clasificacion_aid'); ?> </h4>
+						<h4><?php echo $detalle[count($detalle)-1]->getAttributeLabel('clasificacion_aid'); ?> </h4>
 					</div>
 					<div class="span4">
-						<h4><?php echo $detalle->getAttributeLabel('unidad_did'); ?> </h4>
+						<h4><?php echo $detalle[count($detalle)-1]->getAttributeLabel('unidad_did'); ?> </h4>
 					</div>
 					
                         </td>
@@ -195,27 +224,33 @@ function hideEmptyHeaders(){
                     <tr>
                         <td colspan='2'  style='text-align:right;'>
                             <div id='adddetalle' class="btn btn-primary" >Agregar </div>
-                            	<input id='temporal' type='hidden'/>
+                            	<input id='temporal' type='hidden' />
 				<textarea class="template" rows="0" cols="0" he style="width:0;height:0;visibility:hidden">
 					<tr id='row[{0}]' class='templateContent'>
 						<td>
 							<div class='row-fluid '>
 								<div class="span4">
 									<div class="input">
-										<?php echo $form->textField($detalle,'cantidad'); ?>
-										<?php echo $form->error($detalle,'cantidad'); ?>
+										<?php echo $form->textField($detalle[count($detalle)-1],'cantidad',array('name'=>'BeneficioDetalle[{0}][cantidad]')); ?>
+										<?php echo $form->error($detalle[count($detalle)-1],'cantidad'); ?>
 									</div>
 								</div>
 								<div class="span4">
 									<div class="input">
-										<?php echo$form->dropDownList($detalle,'clasificacion_aid',CHtml::listData(array(), 'id', 'nombre'),array('class'=>'clacal','empty'=>'')); ?>
-										<?php echo $form->error($detalle,'clasificacion_aid'); ?>
+										<?php echo$form->dropDownList($detalle[count($detalle)-1],'clasificacion_aid',
+														CHtml::listData(array(), 'id', 'nombre'),
+														array(	'class'=>'clacal',
+															'empty'=>'', 
+															'name'=>'BeneficioDetalle[{0}][clasificacion_aid]')); ?>
+										<?php echo $form->error($detalle[count($detalle)-1],'clasificacion_aid'); ?>
 									</div>
 								</div>
 								<div class="span4">
 									<div class="input">
-										<?php echo $form->dropDownList($detalle,'unidad_did',CHtml::listData(Unidad::model()->findAll(), 'id', 'nombre')); ?>			
-										<?php echo $form->error($detalle,'unidad_did'); ?>
+										<?php echo $form->dropDownList(	$detalle[count($detalle)-1],'unidad_did',
+														CHtml::listData(Unidad::model()->findAll(), 'id', 'nombre'),
+														array('name'=>'BeneficioDetalle[{0}][unidad_did]')); ?>			
+										<?php echo $form->error($detalle[count($detalle)-1],'unidad_did'); ?>
 									</div>
 								</div>
 							</div>
@@ -231,6 +266,59 @@ function hideEmptyHeaders(){
                     </tr>
                 </tfoot>
                 <tbody class="templateTarget">
+               	<?php 
+               		for($i=0;$i<count($detalle)-1;$i++)
+               		{
+               			echo "<tr id='row[$i]' class='templateContent'>";
+               		?>
+		       		<td>
+					<div class='row-fluid '>
+						<div class="span4">
+							<div class="input">
+								<?php echo $form->textField($detalle[$i],'cantidad',array('name'=>'BeneficioDetalle[{0}][cantidad]')); ?>
+								<?php echo $form->error($detalle[$i],'cantidad'); ?>
+							</div>
+						</div>
+					<div class="span4">
+						<div class="input">
+						
+							<?php if($model->entrada->producto->calibre ){ ?>
+							
+								<?php echo$form->dropDownList($detalle[$i],'calibre_aid',
+											CHtml::listData(Calibre::model()->findAll(array('condition'=>'variedad_did='.$model->entrada->variedad->id)), 'id', 'nombre'),
+											array(	'class'=>'clacal',
+												'empty'=>'Seleccione un calibre', 
+												'name'=>'BeneficioDetalle[{0}][clasificacion_aid]')); ?>
+								<?php echo $form->error($detalle[$i],'calibre_aid'); ?>
+							<?php } else { ?>
+								<?php echo$form->dropDownList($detalle[$i],'clasificacion_aid',
+											CHtml::listData(Clasificacion::model()->findAll(array('condition'=>'variedad_did='.$model->entrada->variedad->id)), 'id', 'nombre'),
+											array(	'class'=>'clacal',
+												'empty'=>'Seleccione un calibre', 
+												'name'=>'BeneficioDetalle[{0}][clasificacion_aid]')); ?>
+								<?php echo $form->error($detalle[$i],'clasificacion_aid'); ?>
+							<?php } ?>
+							
+						</div>
+					</div>
+					<div class="span4">
+						<div class="input">
+							<?php echo $form->dropDownList(	$detalle[$i],'unidad_did',
+											CHtml::listData(Unidad::model()->findAll(), 'id', 'nombre'),
+											array('name'=>'BeneficioDetalle[{0}][unidad_did]')); ?>			
+							<?php echo $form->error($detalle[$i],'unidad_did'); ?>
+						</div>
+					</div>
+				</td>
+				<td align="right">						
+					<div class='remove'> <i class="icon-remove"> </i> </div>
+					<input type='hidden' class='rowIndex' value=<?php echo "'".$i."'";?>></input>
+				</td>
+						
+					<?php
+               			echo '</tr>';
+               		}
+               	?>
                 <tr></tr>
                 </tbody>
             </table>

@@ -37,7 +37,7 @@ return array(
 		      'class'=>'system.gii.GiiModule',
 		      'password'=>'123qwe',
 		      // If removed, Gii defaults to localhost only. Edit carefully to taste.
-		      'ipFilters'=>array('127.0.0.1','::1'),
+		      'ipFilters'=>array('127.0.0.1','::1','10.10.1.81'),
 		      'generatorPaths'=>array('ext.bootstrap-theme.gii',),
 		    ),
 	),
@@ -74,8 +74,8 @@ return array(
 		//c4
 		
 		'db'=>array(
-			'connectionString'=>'mysql:host=127.0.0.1;dbname=agros',
-			'username'=>'root',
+			'connectionString'=>'mysql:host=192.168.2.108;dbname=agros',
+			'username'=>'francisco',
 			'password'=>'123qwe',
 			'charset'=>'utf8',
 		),

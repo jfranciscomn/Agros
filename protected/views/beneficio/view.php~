@@ -25,7 +25,7 @@ $this->menu=array(
 		'id',
 		'fecha_f',
 		array(	'name'=>'entrada_aid',
-		        'value'=>$model->entrada->codigo,),
+		        'value'=>$model->entrada->clave,),
 		array(	'name'=>'estatus_did',
 		        'value'=>$model->estatus->nombre,),
 		array(	'name'=>'temporada_did',

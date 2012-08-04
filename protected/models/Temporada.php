@@ -151,4 +151,12 @@ class Temporada extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	
+	public static function getActive()
+	{
+		$estatus = Estatus::getActive()->active;
+		$configuracion=Configuracion::model()->find(array('condition'=>'estatus_did='.$estatus->id));
+		return $configuracion->temporada;
+	}
 }

@@ -196,6 +196,7 @@ class EntradaController extends Controller
 				                'value' => $valor->codigo,
 				                'productor'=> $valor->cliente->nombre,
 				                'producto'=>$valor->producto->nombre,
+				                'variedad' => $valor->variedad->nombre,
 				                'saldo'=>$valor->saldo . ' ' . $valor->unidad->nombre,
 				                'id' => $valor->id, );
 	    }

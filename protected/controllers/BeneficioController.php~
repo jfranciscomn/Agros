@@ -63,19 +63,84 @@ class BeneficioController extends Controller
 	public function actionCreate()
 	{
 		$model=new Beneficio;
-
+		$detalle = array();
+		$detalle[0] = new BeneficioDetalle;
+		$entrada = new Entrada;
+		$exitoso=true;
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Beneficio']))
+		//echo '<pre>'; print_r($_POST); echo '</pre>';
+		if(isset($_POST['Beneficio']) )
 		{
 			$model->attributes=$_POST['Beneficio'];
+			$detalle = array();
+			if(isset($_POST['BeneficioDetalle']))
+			{
+				for($i=0;$i<count($_POST['BeneficioDetalle']);$i++)
+				{
+					$ndet = new BeneficioDetalle;
+					$ndet->attributes = $_POST['BeneficioDetalle'][$i];
+					if($model->entrada->producto->calibre){
+						$ndet->calibre_aid = $_POST['BeneficioDetalle'][$i]['clasificacion_aid'];
+						$ndet->clasificacion_aid = null;
+					}
+					$ndet->saldo = $ndet->cantidad;
+					$ndet->estatus_did = Estatus::model()->active->id;
+					$detalle[$i] = $ndet;
+				}
+			}
+			
+			$model->estatus_did = Estatus::model()->active->id;
+			$model->temporada_did = Temporada::model()->active->id;
+			
+			
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			{
+				foreach($detalle as $det)
+				{
+					$det->beneficio_aid = $model->id;
+					$exitoso = $exitoso && $det->save();
+					if(!$exitoso)
+						break;
+				}
+				
+				if($exitoso){
+					$this->redirect(array('view','id'=>$model->id));
+				}
+				else{
+					$model->deleteCascade();
+					
+					$model->attributes=$_POST['Beneficio'];
+					$detalle = array();
+					if(isset($_POST['BeneficioDetalle']))
+					{
+						for($i=0;$i<count($_POST['BeneficioDetalle']);$i++)
+						{
+							$ndet = new BeneficioDetalle;
+							$ndet->attributes = $_POST['BeneficioDetalle'][$i];
+							if($model->entrada->producto->calibre){
+								$ndet->calibre_aid = $_POST['BeneficioDetalle'][$i]['clasificacion_aid'];
+								$ndet->clasificacion_aid = null;
+							}
+							$ndet->saldo = $ndet->cantidad;
+							$ndet->estatus_did = Estatus::model()->active->id;
+							$detalle[$i] = $ndet;
+						}
+					}	
+				}
+			}	
+			if(!empty($_POST['Beneficio']['entrada_aid']))
+				$entrada = Entrada::model()->findByPk((int)$_POST['Beneficio']['entrada_aid']);
+				
+			$detalle[]=new BeneficioDetalle;
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'detalle'=>$detalle,
+			'entrada' => $entrada,
 		));
 	}
 
@@ -87,7 +152,9 @@ class BeneficioController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		$detalle = $model->beneficioDetalles;
+		$entrada = $model->entrada;
+		$detalle[count($detalle)]=new BeneficioDetalle;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -100,6 +167,8 @@ class BeneficioController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
+			'detalle'=>$detalle,
+			'entrada' => $entrada,
 		));
 	}
 
