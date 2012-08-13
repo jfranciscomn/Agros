@@ -42,13 +42,24 @@ $('.search-form form').submit(function(){
 	'cssFile'=>Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('ext.bootstrap-theme.widgets.assets')).'/gridview/styles.css',
 	'itemsCssClass'=>'table  table-striped',
 	'columns'=>array(
-		'id',
+
 		'codigo',
 		'fecha_f',
-		'cosecha',
+		array(	'name'=>'cliente_aid',
+		        'value'=>'$data->cliente->nombre',
+			    'filter'=>CHtml::listData(Cliente::model()->findAll(), 'id', 'nombre'),),
+		array(	'name'=>'producto_did',
+		        'value'=>'$data->producto->nombre',
+			    'filter'=>CHtml::listData(Producto::model()->findAll(), 'id', 'nombre'),),
+		array(	'name'=>'variedad_aid',
+		        'value'=>'$data->variedad->nombre',
+			    'filter'=>CHtml::listData(Variedad::model()->findAll(), 'id', 'nombre'),),
+		'pesoNeto',
+		'saldo',
+		
+		/*'cosecha',
 		'camion',
 		'marca',
-		/*
 		'modelo',
 		'placas',
 		'conductor',

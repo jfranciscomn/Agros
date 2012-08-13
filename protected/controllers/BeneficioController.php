@@ -31,7 +31,7 @@ class BeneficioController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','admin','delete'),
+				'actions'=>array('index','view','create','admin','delete'),
 				'users'=>array('@'),
 			),
 			/*
@@ -162,9 +162,6 @@ class BeneficioController extends Controller
 		{
 			$model->attributes=$_POST['Beneficio'];
 			
-			$model2 = $this->loadModel($id);
-			$detalle2 = $model2->beneficioDetalles;
-			
 			if($model->save())
 			{
 				$this->redirect(array('view','id'=>$model->id));
@@ -188,7 +185,7 @@ class BeneficioController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$this->loadModel($id)->deleteCascade();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))

@@ -47,6 +47,8 @@ class SalidaDirecta extends CActiveRecord
 			array('codigoSalida, fecha_f, entrada_aid, cantidad, estatus_did, temporada_did', 'required'),
 			array('entrada_aid, estatus_did, temporada_did', 'numerical', 'integerOnly'=>true),
 			array('cantidad', 'numerical'),
+			//array('estatus_did, temporada_did','dropdownfield'),
+			//array('entrada_aid','autocompletefield'),
 			array('codigoSalida', 'length', 'max'=>254),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -67,6 +69,28 @@ class SalidaDirecta extends CActiveRecord
 			'temporada' => array(self::BELONGS_TO, 'Temporada', 'temporada_did'),
 		);
 	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		$this->delete();
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -76,7 +100,7 @@ class SalidaDirecta extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'codigoSalida' => 'Codigo Salida',
-			'fecha_f' => 'Fecha F',
+			'fecha_f' => 'Fecha',
 			'entrada_aid' => 'Entrada',
 			'cantidad' => 'Cantidad',
 			'estatus_did' => 'Estatus',

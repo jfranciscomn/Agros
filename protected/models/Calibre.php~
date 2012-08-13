@@ -13,9 +13,9 @@
  *
  * The followings are the available model relations:
  * @property BeneficioDetalle[] $beneficioDetalles
+ * @property Estatus $estatus
  * @property Producto $producto
  * @property Variedad $variedad
- * @property Estatus $estatus
  * @property SalidaDetalle[] $salidaDetalles
  */
 class Calibre extends CActiveRecord
@@ -47,6 +47,7 @@ class Calibre extends CActiveRecord
 		return array(
 			array('nombre, producto_did, variedad_did, estatus_did', 'required'),
 			array('producto_did, variedad_did, estatus_did', 'numerical', 'integerOnly'=>true),
+			array('producto_did, variedad_did, estatus_did','dropdownfield'),
 			array('nombre', 'length', 'max'=>150),
 			array('descripcion', 'length', 'max'=>250),
 			// The following rule is used by search().
@@ -64,11 +65,39 @@ class Calibre extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'beneficioDetalles' => array(self::HAS_MANY, 'BeneficioDetalle', 'calibre_aid'),
+			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 			'producto' => array(self::BELONGS_TO, 'Producto', 'producto_did'),
 			'variedad' => array(self::BELONGS_TO, 'Variedad', 'variedad_did'),
-			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 			'salidaDetalles' => array(self::HAS_MANY, 'SalidaDetalle', 'calibre_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->beneficioDetalles as $beneficioDetallesn )
+			$beneficioDetallesn->deleteCascade();
+
+		foreach ($this->salidaDetalles as $salidaDetallesn )
+			$salidaDetallesn->deleteCascade();
+
+		$this->delete();
 	}
 
 	/**
@@ -107,5 +136,12 @@ class Calibre extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	public function linkedAttributes()
+	{
+		return array(
+			'estado_did'=>'municipio_did',
+		);
 	}
 }

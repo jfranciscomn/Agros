@@ -72,7 +72,26 @@ class BeneficioDetalle extends CActiveRecord
 		);
 	}
 	
-	public function elminar()
+	public function save()
+	{
+		$ret=parent::save();
+		
+		if($ret){
+			$entrada=$this->beneficio->entrada;
+			/*echo '<pre>';
+			print_r($this->beneficio->attributes);
+			echo'</pre>';
+			echo '<pre>';
+			print_r($entrada->attributes);
+			echo'</pre>';*/
+			$entrada->saldo =$entrada->saldo - Unidad::conversion($this->cantidad,$this->unidad,$entrada->unidad);
+			$entrada->save();
+		}
+		return $ret;
+
+	}
+	
+	public function deleteCascade()
 	{
 		$this->delete();
 	}

@@ -25,14 +25,14 @@
 		<?php echo $form->label($model,'tipousuario_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,tipousuario_did,CHtml::listData(Tipousuario::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'tipousuario_did',CHtml::listData(TipoUsuario::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="clearfix">
 		<?php echo $form->label($model,'estatus_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,estatus_did,CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'estatus_did',CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="actions">

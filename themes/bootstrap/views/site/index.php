@@ -13,6 +13,54 @@ $this->pageTitle=Yii::app()->name;
 	<li>Layout file: <tt><?php echo $this->getLayoutFile('main'); ?></tt></li>
 </ul>
 
+<div>
+	<?php
+		$this->Widget('ext.custom.widgets.CCustomDialog', array(
+				'id'=>'mydialog',
+				'options'=>array(
+					'title'=>'Dialog box 1',
+					'autoOpen'=>false,
+					'height'=> 600,
+					'width'=> 400,
+					'modal'=> false,
+					'resizable'=> false,
+					'show'=>array('effect'=>'drop', 'direction'=>'up'),
+					'closeOnEscape'=> true,
+					/*'open'=>array(
+							'type'=>'POST',
+							'url'=>'".Yii::app()->createUrl('beneficioDetalle/popupCreate')."',
+							'data'=>array(
+									'entrada'=>'123'
+								),
+							'cache'=>false,
+							'success'=>'function(html){
+									jQuery("#mydialog").html(html);
+								}'
+							),*/
+					'open'=>"js:function(event,ui){ 
+						jQuery.ajax(
+						{
+							'type':'POST',
+							'url':'".Yii::app()->createUrl('beneficioDetalle/popupCreate')."',
+							'data':{'entrada':12345},
+							'cache':false,
+							'success':function(html){
+										jQuery(\"#mydialog\").html(html);
+									}
+						});
+						return false;
+					 }",
+				),
+				
+				
+		));
+			
+		echo CHtml::link('open dialog', '#', array(
+			'onclick'=>'$("#mydialog").dialog("open"); return false;',
+		)); 
+	?>
+</div>
+
 <p>For more details on how to further develop this application, please read
 the <a href="http://www.yiiframework.com/doc/">documentation</a>.
 Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,

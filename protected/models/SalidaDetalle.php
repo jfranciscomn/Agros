@@ -14,12 +14,12 @@
  * @property integer $estatus_did
  *
  * The followings are the available model relations:
- * @property Estatus $estatus
- * @property Salida $salida
  * @property Calibre $calibre
  * @property Clasificacion $clasificacion
- * @property Variedad $variedad
+ * @property Estatus $estatus
  * @property Producto $producto
+ * @property Salida $salida
+ * @property Variedad $variedad
  */
 class SalidaDetalle extends CActiveRecord
 {
@@ -51,6 +51,7 @@ class SalidaDetalle extends CActiveRecord
 			array('cantidad, producto_did, variedad_did, salida_did, estatus_did', 'required'),
 			array('producto_did, variedad_did, clasificacion_did, calibre_did, salida_did, estatus_did', 'numerical', 'integerOnly'=>true),
 			array('cantidad', 'numerical'),
+			//array('producto_did, variedad_did, clasificacion_did, calibre_did, salida_did, estatus_did','dropdownfield'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, cantidad, producto_did, variedad_did, clasificacion_did, calibre_did, salida_did, estatus_did', 'safe', 'on'=>'search'),
@@ -65,13 +66,35 @@ class SalidaDetalle extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
-			'salida' => array(self::BELONGS_TO, 'Salida', 'salida_did'),
 			'calibre' => array(self::BELONGS_TO, 'Calibre', 'calibre_did'),
 			'clasificacion' => array(self::BELONGS_TO, 'Clasificacion', 'clasificacion_did'),
-			'variedad' => array(self::BELONGS_TO, 'Variedad', 'variedad_did'),
+			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 			'producto' => array(self::BELONGS_TO, 'Producto', 'producto_did'),
+			'salida' => array(self::BELONGS_TO, 'Salida', 'salida_did'),
+			'variedad' => array(self::BELONGS_TO, 'Variedad', 'variedad_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		$this->delete();
 	}
 
 	/**

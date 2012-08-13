@@ -1,0 +1,57 @@
+<?php
+$this->pageCaption='';
+$this->pageTitle=Yii::app()->name;
+?>
+
+<h2>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h2>
+
+<p>Congratulations! You have successfully created your Yii application.</p>
+
+<p>You may change the content of this page by modifying the following two files:</p>
+<ul>
+	<li>View file: <tt><?php echo __FILE__; ?></tt></li>
+	<li>Layout file: <tt><?php echo $this->getLayoutFile('main'); ?></tt></li>
+</ul>
+
+<div>
+	<?php
+		$this->Widget('zii.widgets.jui.CJuiDialog', array(
+				'id'=>'mydialog',
+				'options'=>array(
+					'title'=>'Dialog box 1',
+					'autoOpen'=>false,
+					'height'=> 600,
+					'width'=> 400,
+					'modal'=> false,
+					'resizable'=> false,
+					'show'=>array('effect'=>'drop', 'direction'=>'up'),
+					'closeOnEscape'=> true,
+					
+					'open'=>"js:function(event,ui){ 
+						jQuery.ajax(
+						{
+							'type':'POST',
+							'url':'".Yii::app()->createUrl('beneficioDetalle/popupCreate')."',
+							'data':{'entrada':12345},
+							'cache':false,
+							'success':function(html){
+										jQuery(\"#mydialog\").html(html);
+									}
+						});
+						return false;
+					 }",
+				),
+				
+				
+		));
+			
+		echo CHtml::link('open dialog', '#', array(
+			'onclick'=>'$("#mydialog").dialog("open"); return false;',
+		)); 
+	?>
+</div>
+
+<p>For more details on how to further develop this application, please read
+the <a href="http://www.yiiframework.com/doc/">documentation</a>.
+Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
+should you have any questions.</p>

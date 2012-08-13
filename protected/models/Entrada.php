@@ -133,6 +133,31 @@ class Entrada extends CActiveRecord
 			'temporada_did' => 'Temporada',
 		);
 	}
+	
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->$beneficios as $beneficiosn )
+			$beneficiosn->deleteCascade();
+
+		foreach ($this->$salidaDirectas as $salidaDirectasn )
+			$salidaDirectasn->deleteCascade();
+
+		$this->delete();
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

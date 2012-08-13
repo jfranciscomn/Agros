@@ -46,6 +46,8 @@ class Salida extends CActiveRecord
 		return array(
 			array('codigoSalida, fecha_f, estatus_did, temporada_did, cliente_aid', 'required'),
 			array('estatus_did, temporada_did, cliente_aid', 'numerical', 'integerOnly'=>true),
+			//array('estatus_did, temporada_did','dropdownfield'),
+			//array('cliente_aid','autocompletefield'),
 			array('codigoSalida', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -67,6 +69,31 @@ class Salida extends CActiveRecord
 			'salidaDetalles' => array(self::HAS_MANY, 'SalidaDetalle', 'salida_did'),
 		);
 	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->salidaDetalles as $salidaDetallesn )
+			$salidaDetallesn->deleteCascade();
+
+		$this->delete();
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -76,7 +103,7 @@ class Salida extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'codigoSalida' => 'Codigo Salida',
-			'fecha_f' => 'Fecha F',
+			'fecha_f' => 'Fecha',
 			'estatus_did' => 'Estatus',
 			'temporada_did' => 'Temporada',
 			'cliente_aid' => 'Cliente',

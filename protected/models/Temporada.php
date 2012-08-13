@@ -48,8 +48,8 @@ class Temporada extends CActiveRecord
 		return array(
 			array('nombre, fechaIncial_f, estatus_did', 'required'),
 			array('estatus_did', 'numerical', 'integerOnly'=>true),
-			array('estatus_did','dropdownfield'),
-			array('fechaIncial_f, fechaFinal_f','datefield'),
+			//array('estatus_did','dropdownfield'),
+			//array('fechaIncial_f, fechaFinal_f','datefield'),
 			array('nombre', 'length', 'max'=>150),
 			array('fechaFinal_f', 'safe'),
 			// The following rule is used by search().

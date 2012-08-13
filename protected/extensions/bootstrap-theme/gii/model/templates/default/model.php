@@ -131,7 +131,7 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 				$rname=$name.'n';
 				switch($relationType){
 					case 'HAS_MANY':
-						echo "\t\tforeach (\$this->\$$name as \$$rname )\n\t\t\t\$$rname"."->deleteCascade();\n\n";
+						echo "\t\tforeach (\$this->$name as \$$rname )\n\t\t\t\$$rname"."->deleteCascade();\n\n";
 					break;
 					case 'HAS_ONE':
 						echo "\t\t\$$rname"."->deleteCascade();\n\n";

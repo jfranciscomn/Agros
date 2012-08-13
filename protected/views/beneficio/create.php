@@ -1,5 +1,5 @@
 <?php
-$this->pageCaption='Create Beneficio';
+$this->pageCaption='Crear Beneficio';
 $this->pageTitle=Yii::app()->name . ' - ' . $this->pageCaption;
 $this->pageDescription='Crear nuevo beneficio';
 $this->breadcrumbs=array(

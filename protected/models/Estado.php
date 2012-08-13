@@ -43,6 +43,7 @@ class Estado extends CActiveRecord
 		return array(
 			array('nombre, estatus_did', 'required'),
 			array('estatus_did', 'numerical', 'integerOnly'=>true),
+			//array('estatus_did','dropdownfield'),
 			array('nombre', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -63,6 +64,37 @@ class Estado extends CActiveRecord
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 			'municipios' => array(self::HAS_MANY, 'Municipio', 'estado_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->clientes as $clientesn )
+			$clientesn->deleteCascade();
+
+		foreach ($this->entradas as $entradasn )
+			$entradasn->deleteCascade();
+
+		foreach ($this->municipios as $municipiosn )
+			$municipiosn->deleteCascade();
+
+		$this->delete();
 	}
 
 	/**

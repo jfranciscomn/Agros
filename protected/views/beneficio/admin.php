@@ -1,10 +1,10 @@
 <?php
-$this->pageCaption='Manage Beneficio';
+$this->pageCaption='Administar Beneficio';
 $this->pageTitle=Yii::app()->name . ' - ' . $this->pageCaption;
 $this->pageDescription='Administar beneficio';
 $this->breadcrumbs=array(
 	'Beneficio'=>array('index'),
-	'Manage',
+	'Administar',
 );
 
 $this->menu=array(
@@ -45,8 +45,8 @@ $('.search-form form').submit(function(){
 		'id',
 		'fecha_f',
 		array(	'name'=>'entrada_aid',
-		        'value'=>'$data->entrada->nombre',
-			    'filter'=>CHtml::listData(Entrada::model()->findAll(), 'id', 'nombre'),),
+		        'value'=>'$data->entrada->codigo',
+			    'filter'=>CHtml::listData(Entrada::model()->findAll(), 'id', 'codigo'),),
 		array(	'name'=>'estatus_did',
 		        'value'=>'$data->estatus->nombre',
 			    'filter'=>CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre'),),

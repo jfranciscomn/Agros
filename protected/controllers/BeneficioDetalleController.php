@@ -31,7 +31,7 @@ class BeneficioDetalleController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','admin','delete'),
+				'actions'=>array('index','view','create','update','admin','delete','popupCreate'),
 				'users'=>array('@'),
 			),
 			/*
@@ -195,5 +195,16 @@ class BeneficioDetalleController extends Controller
 	    }
 	    echo json_encode($result);
 	    Yii::app()->end();
+	}
+	
+	public function actionPopupCreate(){
+		$model=new BeneficioDetalle;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		$this->renderPartial('create',array(
+			'model'=>$model,
+		));
 	}
 }

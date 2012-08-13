@@ -120,7 +120,7 @@ class Entrada extends CActiveRecord
 			'taraCamion' => 'Tara Camion',
 			'pesoNeto' => 'Peso Neto',
 			'impuresas' => 'Impuresas',
-			'pesoNetoAnalizado' => 'Peso Neto Analizado',
+			'pesoNetoAnalizado' => 'Peso Neto A.',
 			'saldo' => 'Saldo',
 			'cliente_aid' => 'Cliente',
 			'producto_did' => 'Producto',
@@ -132,6 +132,31 @@ class Entrada extends CActiveRecord
 			'estatus_did' => 'Estatus',
 			'temporada_did' => 'Temporada',
 		);
+	}
+	
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->$beneficios as $beneficiosn )
+			$beneficiosn->deleteCascade();
+
+		foreach ($this->$salidaDirectas as $salidaDirectasn )
+			$salidaDirectasn->deleteCascade();
+
+		$this->delete();
 	}
 
 	/**

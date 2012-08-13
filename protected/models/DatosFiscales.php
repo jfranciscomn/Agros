@@ -42,6 +42,7 @@ class DatosFiscales extends CActiveRecord
 			array('nombre, valor, estaus_did', 'required'),
 			array('estaus_did', 'numerical', 'integerOnly'=>true),
 			array('valor', 'numerical'),
+			//array('estaus_did','dropdownfield'),
 			array('nombre', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -59,6 +60,28 @@ class DatosFiscales extends CActiveRecord
 		return array(
 			'estaus' => array(self::BELONGS_TO, 'Estatus', 'estaus_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		$this->delete();
 	}
 
 	/**

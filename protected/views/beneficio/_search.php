@@ -18,17 +18,17 @@
 		<div class="input">
 			
 			<?php
-					if ($fecha_f!='') 
-						$fecha_f=date('d-m-Y',strtotime($fecha_f));
+					if ($model->fecha_f!='') 
+						$model->fecha_f=date('Y-m-d',strtotime($model->fecha_f));
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					                                       'model'=>$model,
 					                                       'attribute'=>'fecha_f',
-					                                       'value'=>$fecha_f,
+					                                       'value'=>$model->fecha_f,
 					                                       'language' => 'es',
 					                                       'htmlOptions' => array('readonly'=>"readonly"),
 					                                       'options'=>array(
 					                                               'autoSize'=>true,
-					                                               'defaultDate'=>$fecha_f,
+					                                               'defaultDate'=>$model->fecha_f,
 					                                               'dateFormat'=>'yy-mm-dd',
 					                                               'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
 					                                               'buttonImageOnly'=>true,
@@ -55,7 +55,7 @@
 					      'sourceUrl'=>Yii::app()->createUrl('entrada/autocompletesearch'), 
 					      'showFKField'=>false,
 					      'relName'=>'entrada', // the relation name defined above
-					      'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
+					      'displayAttr'=>'codigo',  // attribute or pseudo-attribute to display
 
 					      'options'=>array(
 					          'minLength'=>1, 
@@ -67,14 +67,14 @@
 		<?php echo $form->label($model,'estatus_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,estatus_did,CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'estatus_did',CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="clearfix">
 		<?php echo $form->label($model,'temporada_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,temporada_did,CHtml::listData(Temporada::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'temporada_did',CHtml::listData(Temporada::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="actions">

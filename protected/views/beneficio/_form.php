@@ -22,7 +22,7 @@
 			
 						<?php
 								if ($model->fecha_f!='') 
-									$model->fecha_f=date('d-m-Y',strtotime($model->fecha_f));
+									$model->fecha_f=date('Y-m-d',strtotime($model->fecha_f));
 								$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 											               'model'=>$model,
 											               'attribute'=>'fecha_f',
@@ -231,6 +231,7 @@ function hideEmptyHeaders(){
 							<div class='row-fluid '>
 								<div class="span4">
 									<div class="input">
+										<?php echo $form->hiddenField($detalle[count($detalle)-1],'id',array('name'=>'BeneficioDetalle[{0}][id]')); ?>
 										<?php echo $form->textField($detalle[count($detalle)-1],'cantidad',array('name'=>'BeneficioDetalle[{0}][cantidad]')); ?>
 										<?php echo $form->error($detalle[count($detalle)-1],'cantidad'); ?>
 									</div>
@@ -275,7 +276,8 @@ function hideEmptyHeaders(){
 					<div class='row-fluid '>
 						<div class="span4">
 							<div class="input">
-								<?php echo $form->textField($detalle[$i],'cantidad',array('name'=>'BeneficioDetalle[{0}][cantidad]')); ?>
+								<?php echo $form->hiddenField($detalle[$i],'id',array('name'=>"BeneficioDetalle[$i][id]",)); ?>
+								<?php echo $form->textField($detalle[$i],'cantidad',array('name'=>"BeneficioDetalle[$i][cantidad]")); ?>
 								<?php echo $form->error($detalle[$i],'cantidad'); ?>
 							</div>
 						</div>
@@ -288,14 +290,14 @@ function hideEmptyHeaders(){
 											CHtml::listData(Calibre::model()->findAll(array('condition'=>'variedad_did='.$model->entrada->variedad->id)), 'id', 'nombre'),
 											array(	'class'=>'clacal',
 												'empty'=>'Seleccione un calibre', 
-												'name'=>'BeneficioDetalle[{0}][clasificacion_aid]')); ?>
+												'name'=>"BeneficioDetalle[$i][clasificacion_aid]")); ?>
 								<?php echo $form->error($detalle[$i],'calibre_aid'); ?>
 							<?php } else { ?>
 								<?php echo$form->dropDownList($detalle[$i],'clasificacion_aid',
 											CHtml::listData(Clasificacion::model()->findAll(array('condition'=>'variedad_did='.$model->entrada->variedad->id)), 'id', 'nombre'),
 											array(	'class'=>'clacal',
 												'empty'=>'Seleccione una clasificacion', 
-												'name'=>'BeneficioDetalle[{0}][clasificacion_aid]')); ?>
+												'name'=>"BeneficioDetalle[$i][clasificacion_aid]")); ?>
 								<?php echo $form->error($detalle[$i],'clasificacion_aid'); ?>
 							<?php } ?>
 							
@@ -305,7 +307,7 @@ function hideEmptyHeaders(){
 						<div class="input">
 							<?php echo $form->dropDownList(	$detalle[$i],'unidad_did',
 											CHtml::listData(Unidad::model()->findAll(), 'id', 'nombre'),
-											array('name'=>'BeneficioDetalle[{0}][unidad_did]')); ?>			
+											array('name'=>"BeneficioDetalle[$i][unidad_did]")); ?>			
 							<?php echo $form->error($detalle[$i],'unidad_did'); ?>
 						</div>
 					</div>

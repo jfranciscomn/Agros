@@ -28,7 +28,7 @@
 				
 				if($finalCampo=='did'){
 					$modeloColumna=ucwords($partes[0]);
-					echo '<?php echo $form->dropDownList($model,'.$column->name.',CHtml::listData('.$modeloColumna."::model()->findAll(), 'id', 'nombre')); ?>";
+					echo '<?php echo $form->dropDownList($model,\''.$column->name.'\',CHtml::listData('.$modeloColumna."::model()->findAll(), 'id', 'nombre')); ?>";
 				}
 				else if($finalCampo=='aid'){
 					$modeloColumna=$partes[0];
@@ -48,17 +48,17 @@
 				}
 				else if($finalCampo=='f'){
 					echo "<?php
-					if (\$$column->name!='') 
-						\$$column->name=date('d-m-Y',strtotime(\$$column->name));
+					if (\$model->$column->name!='') 
+						\$model->$column->name=date('d-m-Y',strtotime(\$model->$column->name));
 					\$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					                                       'model'=>\$model,
 					                                       'attribute'=>'$column->name',
-					                                       'value'=>\$$column->name,
+					                                       'value'=>\$model->$column->name,
 					                                       'language' => 'es',
 					                                       'htmlOptions' => array('readonly'=>\"readonly\"),
 					                                       'options'=>array(
 					                                               'autoSize'=>true,
-					                                               'defaultDate'=>\$$column->name,
+					                                               'defaultDate'=>\$model->$column->name,
 					                                               'dateFormat'=>'yy-mm-dd',
 					                                               'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
 					                                               'buttonImageOnly'=>true,

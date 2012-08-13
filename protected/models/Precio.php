@@ -11,9 +11,9 @@
  * @property integer $temporada_did
  *
  * The followings are the available model relations:
+ * @property Estatus $estatus
  * @property Servicio $servicio
  * @property Temporada $temporada
- * @property Estatus $estatus
  */
 class Precio extends CActiveRecord
 {
@@ -45,6 +45,7 @@ class Precio extends CActiveRecord
 			array('valor, servicio_did, estatus_did, temporada_did', 'required'),
 			array('servicio_did, estatus_did, temporada_did', 'numerical', 'integerOnly'=>true),
 			array('valor', 'numerical'),
+			//array('servicio_did, estatus_did, temporada_did','dropdownfield'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, valor, servicio_did, estatus_did, temporada_did', 'safe', 'on'=>'search'),
@@ -59,10 +60,32 @@ class Precio extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 			'servicio' => array(self::BELONGS_TO, 'Servicio', 'servicio_did'),
 			'temporada' => array(self::BELONGS_TO, 'Temporada', 'temporada_did'),
-			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		$this->delete();
 	}
 
 	/**

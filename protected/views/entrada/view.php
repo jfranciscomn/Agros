@@ -22,7 +22,6 @@ $this->menu=array(
 	'cssFile'=>false,
 	'htmlOptions'=>array('class'=>'table table-bordered table-striped'),
 	'attributes'=>array(
-		'id',
 		'codigo',
 		'fecha_f',
 		'cosecha',
@@ -51,9 +50,6 @@ $this->menu=array(
 		        'value'=>$model->municipio->nombre,),
 		array(	'name'=>'ejido_did',
 		        'value'=>$model->ejido->nombre,),
-		array(	'name'=>'estatus_did',
-		        'value'=>$model->estatus->nombre,),
-		array(	'name'=>'temporada_did',
-		        'value'=>$model->temporada->nombre,),
+		
 	),
 )); ?>

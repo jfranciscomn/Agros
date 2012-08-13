@@ -129,9 +129,15 @@ class Estatus extends CActiveRecord
 		));
 	}
 	
-	public static function getActive()
+	public function getActive()
 	{
 		$estatus = Estatus::model()->find(array('condition'=>'nombre=\'Activo\''));
+		return $estatus;
+	}
+	
+	public function getDeleting()
+	{
+		$estatus = Estatus::model()->find(array('condition'=>'nombre=\'Eliminando\''));
 		return $estatus;
 	}
 }

@@ -10,7 +10,6 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Listar Beneficio', 'url'=>array('index')),
 	array('label'=>'Crear Beneficio', 'url'=>array('create')),
-	array('label'=>'Actualizar Beneficio', 'url'=>array('update', 'id'=>$model->id)),
 	array('label'=>'Eliminar Beneficio', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'¿Estas seguro que quieres eliminar este elemento?')),
 	array('label'=>'Administrar Beneficio', 'url'=>array('admin')),
 );
@@ -31,4 +30,36 @@ $this->menu=array(
 		array(	'name'=>'temporada_did',
 		        'value'=>$model->temporada->nombre,),
 	),
-)); ?>
+)); 
+?>
+<table class="table table-bordered table-striped" >
+	<thead>
+		<?php
+			if($model->entrada->producto->clasificacion)
+				echo '<th>Clasificacion</th>';
+			else
+				echo '<th>Calibre</th>';
+		?>
+		<th>Cantidad</th>
+		<th>Saldo</th>
+		<th>Unidad</th>
+	</thead>
+	<tbody>
+		<?php
+			foreach($model->beneficioDetalles as $detalle)
+			{
+				echo '<tr>';
+				if($model->entrada->producto->clasificacion)
+					$clacal=$detalle->clasificacion->nombre;
+				else
+					$clacal=$detalle->calibre->nombre;
+				echo "<td> $clacal  </td>";
+				echo "<td> $detalle->cantidad </td>";
+				echo "<td> $detalle->saldo </td>";
+				echo "<td>". $detalle->unidad->nombre ."</td>";
+				echo '</tr>';
+			}
+		?>
+	</tbody>
+</table>
+

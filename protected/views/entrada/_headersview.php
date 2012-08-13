@@ -1,25 +1,25 @@
 <table class="table table-bordered table-striped">
 	<tr>
 		<td class='span2'>
-			<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?></b>
-		</td>
-		<td >
 			<b><?php echo CHtml::encode($data->getAttributeLabel('codigo')); ?></b>
 		</td>
 		<td >
 			<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_f')); ?></b>
 		</td>
 		<td >
-			<b><?php echo CHtml::encode($data->getAttributeLabel('cosecha')); ?></b>
+			<b><?php echo CHtml::encode($data->getAttributeLabel('cliente_aid')); ?></b>
 		</td>
 		<td >
-			<b><?php echo CHtml::encode($data->getAttributeLabel('camion')); ?></b>
+			<b><?php echo CHtml::encode($data->getAttributeLabel('producto_did')); ?></b>
 		</td>
 		<td >
-			<b><?php echo CHtml::encode($data->getAttributeLabel('marca')); ?></b>
+			<b><?php echo CHtml::encode($data->getAttributeLabel('variedad_aid')); ?></b>
 		</td>
 		<td >
-			<b><?php echo CHtml::encode($data->getAttributeLabel('modelo')); ?></b>
+			<b><?php echo CHtml::encode($data->getAttributeLabel('pesoNeto')); ?></b>
+		</td>
+		<td >
+			<b><?php echo CHtml::encode($data->getAttributeLabel('saldo')); ?></b>
 		</td>
 		<?php /*
 		<td >

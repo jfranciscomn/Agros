@@ -1,3 +1,4 @@
+
 <div class="wide form">
 
 <?php $form=$this->beginWidget('BActiveForm', array(
@@ -26,31 +27,31 @@
 		<div class="input">
 			
 			<?php
-					if ($fecha_f!='') 
-						$fecha_f=date('d-m-Y',strtotime($fecha_f));
+					if ($model->fecha_f!='') 
+						$model->fecha_f=date('d-m-Y',strtotime($model->fecha_f));
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-					                                       'model'=>$model,
-					                                       'attribute'=>'fecha_f',
-					                                       'value'=>$fecha_f,
-					                                       'language' => 'es',
-					                                       'htmlOptions' => array('readonly'=>"readonly"),
-					                                       'options'=>array(
-					                                               'autoSize'=>true,
-					                                               'defaultDate'=>$fecha_f,
-					                                               'dateFormat'=>'yy-mm-dd',
-					                                               'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
-					                                               'buttonImageOnly'=>true,
-					                                               'buttonText'=>'Fecha',
-					                                               'selectOtherMonths'=>true,
-					                                               'showAnim'=>'slide',
-					                                               'showButtonPanel'=>true,
-					                                               'showOn'=>'button',
-					                                               'showOtherMonths'=>true,
-					                                               'changeMonth' => 'true',
-					                                               'changeYear' => 'true',
-					                                               'minDate'=>"-70Y", //fecha minima
-					                                               'maxDate'=> "+10Y", //fecha maxima
-					                                       ),)); ?>		</div>
+														   'model'=>$model,
+														   'attribute'=>'fecha_f',
+														   'value'=>$model->fecha_f,
+														   'language' => 'es',
+														   'htmlOptions' => array('readonly'=>"readonly"),
+														   'options'=>array(
+																   'autoSize'=>true,
+																   'defaultDate'=>$model->fecha_f,
+																   'dateFormat'=>'yy-mm-dd',
+																   'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
+																   'buttonImageOnly'=>true,
+																   'buttonText'=>'Fecha',
+																   'selectOtherMonths'=>true,
+																   'showAnim'=>'slide',
+																   'showButtonPanel'=>true,
+																   'showOn'=>'button',
+																   'showOtherMonths'=>true,
+																   'changeMonth' => 'true',
+																   'changeYear' => 'true',
+																   'minDate'=>"-70Y", //fecha minima
+																   'maxDate'=> "+10Y", //fecha maxima
+														   ),)); ?>		</div>
 	</div>
 
 	<div class="clearfix">
@@ -154,16 +155,16 @@
 		<div class="input">
 			
 			<?php $this->widget('ext.custom.widgets.EJuiAutoCompleteFkField', array(
-					      'model'=>$model, 
-					      'attribute'=>'cliente_aid', 
-					      'sourceUrl'=>Yii::app()->createUrl('cliente/autocompletesearch'), 
-					      'showFKField'=>false,
-					      'relName'=>'cliente', // the relation name defined above
-					      'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
+						  'model'=>$model, 
+						  'attribute'=>'cliente_aid', 
+						  'sourceUrl'=>Yii::app()->createUrl('cliente/autocompletesearch'), 
+						  'showFKField'=>false,
+						  'relName'=>'cliente', // the relation name defined above
+						  'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
 
-					      'options'=>array(
-					          'minLength'=>1, 
-					      ),
+						  'options'=>array(
+							  'minLength'=>1, 
+						  ),
 					 )); ?>		</div>
 	</div>
 
@@ -171,7 +172,7 @@
 		<?php echo $form->label($model,'producto_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,producto_did,CHtml::listData(Producto::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'producto_did',CHtml::listData(Producto::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="clearfix">
@@ -179,16 +180,16 @@
 		<div class="input">
 			
 			<?php $this->widget('ext.custom.widgets.EJuiAutoCompleteFkField', array(
-					      'model'=>$model, 
-					      'attribute'=>'variedad_aid', 
-					      'sourceUrl'=>Yii::app()->createUrl('variedad/autocompletesearch'), 
-					      'showFKField'=>false,
-					      'relName'=>'variedad', // the relation name defined above
-					      'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
+						  'model'=>$model, 
+						  'attribute'=>'variedad_aid', 
+						  'sourceUrl'=>Yii::app()->createUrl('variedad/autocompletesearch'), 
+						  'showFKField'=>false,
+						  'relName'=>'variedad', // the relation name defined above
+						  'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
 
-					      'options'=>array(
-					          'minLength'=>1, 
-					      ),
+						  'options'=>array(
+							  'minLength'=>1, 
+						  ),
 					 )); ?>		</div>
 	</div>
 
@@ -196,14 +197,14 @@
 		<?php echo $form->label($model,'unidad_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,unidad_did,CHtml::listData(Unidad::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'unidad_did',CHtml::listData(Unidad::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="clearfix">
 		<?php echo $form->label($model,'estado_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,estado_did,CHtml::listData(Estado::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'estado_did',CHtml::listData(Estado::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="clearfix">
@@ -211,16 +212,16 @@
 		<div class="input">
 			
 			<?php $this->widget('ext.custom.widgets.EJuiAutoCompleteFkField', array(
-					      'model'=>$model, 
-					      'attribute'=>'municipio_aid', 
-					      'sourceUrl'=>Yii::app()->createUrl('municipio/autocompletesearch'), 
-					      'showFKField'=>false,
-					      'relName'=>'municipio', // the relation name defined above
-					      'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
+						  'model'=>$model, 
+						  'attribute'=>'municipio_aid', 
+						  'sourceUrl'=>Yii::app()->createUrl('municipio/autocompletesearch'), 
+						  'showFKField'=>false,
+						  'relName'=>'municipio', // the relation name defined above
+						  'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
 
-					      'options'=>array(
-					          'minLength'=>1, 
-					      ),
+						  'options'=>array(
+							  'minLength'=>1, 
+						  ),
 					 )); ?>		</div>
 	</div>
 
@@ -228,21 +229,21 @@
 		<?php echo $form->label($model,'ejido_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,ejido_did,CHtml::listData(Ejido::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'ejido_did',CHtml::listData(Ejido::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="clearfix">
 		<?php echo $form->label($model,'estatus_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,estatus_did,CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'estatus_did',CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="clearfix">
 		<?php echo $form->label($model,'temporada_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,temporada_did,CHtml::listData(Temporada::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'temporada_did',CHtml::listData(Temporada::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="actions">
