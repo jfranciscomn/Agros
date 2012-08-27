@@ -89,8 +89,8 @@
 			<div class="<?php echo $form->fieldClass($model, 'producto_did'); ?>">
 				<?php echo $form->labelEx($model,'producto_did'); ?>
 				<div class="input">
-			
-					<?php echo $form->dropDownList($model,'producto_did',CHtml::listData(Producto::model()->findAll(), 'id', 'nombre'),array(
+					
+					<?php print_r($model); echo $form->dropDownList($model,'producto_did',CHtml::listData(Producto::model()->findAll(), 'id', 'nombre'),array(
 					'empty'=>'Seleccione un Producto', 
 					'ajax' => array(
 						   'type'=>'POST',
@@ -194,7 +194,7 @@
 						<?php 
 							$ejidols =CHtml::listData(array(), 'id', 'nombre');
 							if(!empty($model->municipio_aid))
-								$ejidols =CHtml::listData(Ejido::model()->findAll(array('condition'=>'municipio_aid='.$model->municipio_aid)), 'id', 'nombre');
+								$ejidols =CHtml::listData(Ejido::model()->findAll(array('condition'=>'municipio_did='.$model->municipio_aid)), 'id', 'nombre');
 						
 							echo $form->dropDownList($model,'ejido_did',
 							$ejidols,

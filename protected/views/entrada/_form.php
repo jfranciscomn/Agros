@@ -89,7 +89,7 @@
 			<div class="<?php echo $form->fieldClass($model, 'producto_did'); ?>">
 				<?php echo $form->labelEx($model,'producto_did'); ?>
 				<div class="input">
-			
+					
 					<?php echo $form->dropDownList($model,'producto_did',CHtml::listData(Producto::model()->findAll(), 'id', 'nombre'),array(
 					'empty'=>'Seleccione un Producto', 
 					'ajax' => array(
