@@ -100,6 +100,9 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 		);
 	}
 	
+	/**
+	*
+	**/
 	public function attributeDatatypeRelation($attr)
 	{
 		$relations =$this->relations();

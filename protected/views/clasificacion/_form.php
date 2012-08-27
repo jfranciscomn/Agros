@@ -43,7 +43,6 @@
 			                   'update'=>'#Clasificacion_variedad_did',
 			                   'data'=>array('producto'=>'js:this.value'),
 			                ),
-			        'style'=>'width:30%',
 			   )); ?>			
 				<?php echo $form->error($model,'producto_did'); ?>
 			</div>
@@ -54,7 +53,7 @@
 			<?php echo $form->labelEx($model,'variedad_did'); ?>
 			<div class="input">
 
-				<?php echo $form->dropDownList($model,'variedad_did',CHtml::listData(array(), 'id', 'nombre'),array('empty' => 'Seleccione una variedad', 'style'=>'width:30%', 'disabled'=>false)); ?>			
+				<?php echo $form->dropDownList($model,'variedad_did',CHtml::listData(array(), 'id', 'nombre'),array('empty' => 'Seleccione una variedad', 'disabled'=>false)); ?>			
 				<?php echo $form->error($model,'variedad_did'); ?>
 			</div>
 		</div>

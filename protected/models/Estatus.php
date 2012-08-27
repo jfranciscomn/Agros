@@ -134,4 +134,10 @@ class Estatus extends CActiveRecord
 		$estatus = Estatus::model()->find(array('condition'=>'nombre=\'Activo\''));
 		return $estatus;
 	}
+	
+	public function getDeleting()
+	{
+		$estatus = Estatus::model()->find(array('condition'=>'nombre=\'Eliminando\''));
+		return $estatus;
+	}
 }

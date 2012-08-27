@@ -42,6 +42,7 @@ class Servicio extends CActiveRecord
 		return array(
 			array('nombre, estatus_did', 'required'),
 			array('estatus_did', 'numerical', 'integerOnly'=>true),
+			//array('estatus_did','dropdownfield'),
 			array('nombre', 'length', 'max'=>255),
 			array('descripcion', 'length', 'max'=>300),
 			// The following rule is used by search().
@@ -61,6 +62,31 @@ class Servicio extends CActiveRecord
 			'precios' => array(self::HAS_MANY, 'Precio', 'servicio_did'),
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->precios as $preciosn )
+			$preciosn->deleteCascade();
+
+		$this->delete();
 	}
 
 	/**

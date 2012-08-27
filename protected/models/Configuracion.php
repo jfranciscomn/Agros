@@ -41,6 +41,7 @@ class Configuracion extends CActiveRecord
 		return array(
 			array('estatus_did, temporada_did', 'required'),
 			array('estatus_did, temporada_did', 'numerical', 'integerOnly'=>true),
+			//array('estatus_did, temporada_did','dropdownfield'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, estatus_did, temporada_did', 'safe', 'on'=>'search'),
@@ -58,6 +59,28 @@ class Configuracion extends CActiveRecord
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 			'temporada' => array(self::BELONGS_TO, 'Temporada', 'temporada_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		$this->delete();
 	}
 
 	/**

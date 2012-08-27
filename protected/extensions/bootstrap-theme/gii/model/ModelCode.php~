@@ -245,12 +245,12 @@ class ModelCode extends CCodeModel
 			else if(!$column->isPrimaryKey && !$r)
 				$safe[]=$column->name;
 			
-			/*if(strcasecmp(substr($column->name,-4),'_did')===0 )
+			if(strcasecmp(substr($column->name,-4),'_did')===0 )
 				$dropdownlist[]=$column->name;
 			else if(strcasecmp(substr($column->name,-3),'_id')===0)
 				$dropdownlist[]=$column->name;
 			else if(strcasecmp(substr($column->name,-4),'_aid')===0)
-				$autocompleatelist[]=$column->name;*/
+				$autocompleatelist[]=$column->name;
 		}
 		if($required!==array())
 			$rules[]="array('".implode(', ',$required)."', 'required')";

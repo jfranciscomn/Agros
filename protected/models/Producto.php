@@ -12,6 +12,8 @@
  * @property integer $estatus_did
  *
  * The followings are the available model relations:
+ * @property Calibre[] $calibres
+ * @property Clasificacion[] $clasificacions
  * @property Entrada[] $entradas
  * @property Estatus $estatus
  * @property SalidaDetalle[] $salidaDetalles
@@ -46,7 +48,7 @@ class Producto extends CActiveRecord
 		return array(
 			array('nombre, variedad, clasificacion, calibre, estatus_did', 'required'),
 			array('variedad, clasificacion, calibre, estatus_did', 'numerical', 'integerOnly'=>true),
-	
+			//array('estatus_did','dropdownfield'),
 			array('nombre', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -62,11 +64,54 @@ class Producto extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'calibres' => array(self::HAS_MANY, 'Calibre', 'producto_did'),
+			'clasificacions' => array(self::HAS_MANY, 'Clasificacion', 'producto_did'),
 			'entradas' => array(self::HAS_MANY, 'Entrada', 'producto_did'),
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 			'salidaDetalles' => array(self::HAS_MANY, 'SalidaDetalle', 'producto_did'),
 			'variedads' => array(self::HAS_MANY, 'Variedad', 'producto_aid'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->salidaDetalles as $salidaDetallesn )
+			$salidaDetallesn->deleteCascade();
+
+		foreach ($this->entradas as $entradasn )
+			$entradasn->deleteCascade();
+
+
+			
+		foreach ($this->calibres as $calibresn )
+			$calibresn->deleteCascade();
+
+		foreach ($this->clasificacions as $clasificacionsn )
+			$clasificacionsn->deleteCascade();
+
+
+
+		foreach ($this->variedads as $variedadsn )
+			$variedadsn->deleteCascade();
+
+		$this->delete();
 	}
 
 	/**

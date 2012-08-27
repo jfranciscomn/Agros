@@ -71,6 +71,27 @@ class BeneficioDetalle extends CActiveRecord
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 		);
 	}
+	
+	public function save()
+	{
+		$ret=parent::save();
+		
+		if($ret){
+			$entrada=$this->beneficio->entrada;
+			$entrada->saldo =$entrada->saldo - Unidad::conversion($this->cantidad,$this->unidad,$entrada->unidad);
+			$entrada->save();
+		}
+		return $ret;
+
+	}
+	
+	public function deleteCascade()
+	{
+		$entrada=$this->beneficio->entrada;
+		$entrada->saldo =$entrada->saldo + Unidad::conversion($this->cantidad,$this->unidad,$entrada->unidad);
+		$entrada->save();
+		$this->delete();
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)

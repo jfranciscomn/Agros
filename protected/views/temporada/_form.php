@@ -27,7 +27,7 @@
 			
 			<?php
 					if ($model->fechaIncial_f!='') 
-						$model->fechaIncial_f=date('d-m-Y',strtotime($model->fechaIncial_f));
+						$model->fechaIncial_f=date('Y-m-d',strtotime($model->fechaIncial_f));
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					                                       'model'=>$model,
 					                                       'attribute'=>'fechaIncial_f',
@@ -60,7 +60,7 @@
 			
 			<?php
 					if ($model->fechaFinal_f!='') 
-						$model->fechaFinal_f=date('d-m-Y',strtotime($model->fechaFinal_f));
+						$model->fechaFinal_f=date('Y-m-d',strtotime($model->fechaFinal_f));
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					                                       'model'=>$model,
 					                                       'attribute'=>'fechaFinal_f',

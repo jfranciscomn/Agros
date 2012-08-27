@@ -1,5 +1,26 @@
 	<tr>
 		<td>
+			<?php echo CHtml::link(CHtml::encode($data->codigo), array('view', 'id'=>$data->id)); ?>
+		</td>
+		<td>
+			<?php echo CHtml::encode($data->fecha_f); ?>
+		</td>
+		<td>
+			<?php echo CHtml::encode($data->cliente->nombre); ?>
+		</td>
+		<td>
+			<?php echo CHtml::encode($data->producto->nombre); ?>
+		</td>
+		<td>
+			<?php echo CHtml::encode($data->variedad->nombre); ?>
+		</td>
+		<td>
+			<?php echo CHtml::encode($data->pesoNeto); ?>
+		</td>
+		<td>
+			<?php echo CHtml::encode($data->saldo); ?>
+		</td>
+		<?php /*<td>
 			<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 		</td>
 		<td>
@@ -20,7 +41,7 @@
 		<td>
 			<?php echo CHtml::encode($data->modelo); ?>
 		</td>
-		<?php /*
+		
 		<td>
 			<?php echo CHtml::encode($data->placas); ?>
 		</td>

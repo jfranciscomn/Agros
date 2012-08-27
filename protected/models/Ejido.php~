@@ -43,8 +43,7 @@ class Ejido extends CActiveRecord
 		return array(
 			array('nombre, municipio_did, estatus_did', 'required'),
 			array('municipio_did, estatus_did', 'numerical', 'integerOnly'=>true),
-			array('estatus_did','dropdownfield'),
-			array('municipio_did','autocompletefield')
+			array('municipio_did, estatus_did','dropdownfield'),
 			array('nombre', 'length', 'max'=>145),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -85,7 +84,7 @@ class Ejido extends CActiveRecord
 	**/
 	public function deleteCascade()
 	{
-		foreach ($this->$entradas as $entradasn )
+		foreach ($this->entradas as $entradasn )
 			$entradasn->deleteCascade();
 
 		$this->delete();

@@ -45,6 +45,7 @@ class Municipio extends CActiveRecord
 		return array(
 			array('nombre, estado_did, estatus_did', 'required'),
 			array('estado_did, estatus_did', 'numerical', 'integerOnly'=>true),
+			//array('estado_did, estatus_did','dropdownfield'),
 			array('nombre', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -66,6 +67,37 @@ class Municipio extends CActiveRecord
 			'estado' => array(self::BELONGS_TO, 'Estado', 'estado_did'),
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->clientes as $clientesn )
+			$clientesn->deleteCascade();
+
+		foreach ($this->ejidos as $ejidosn )
+			$ejidosn->deleteCascade();
+
+		foreach ($this->entradas as $entradasn )
+			$entradasn->deleteCascade();
+
+		$this->delete();
 	}
 
 	/**

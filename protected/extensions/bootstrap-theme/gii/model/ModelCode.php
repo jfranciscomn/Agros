@@ -204,6 +204,7 @@ class ModelCode extends CCodeModel
 
 	public function generateRules($table)
 	{
+		foreach ($table->foreignKeys as $fkName => $fkEntry)
 		if(strcasecmp(substr($fkName,-3),'did')===0 &&  strcasecmp($fkName,'did'))
 			$relationName=rtrim(substr($fkName, 0, -3),'_');
 		else if(strcasecmp(substr($fkName,-3),'aid')===0 && strcasecmp($fkName,'aid'))

@@ -215,7 +215,6 @@ class VariedadController extends Controller
 	
 	public function actionDynamicClacal()
 	{
-
 		if(Yii::app()->request->isAjaxRequest && !empty($_POST['entrada']))
 		{
 			$par=$_POST['entrada'];
@@ -225,16 +224,16 @@ class VariedadController extends Controller
 				
 				if($entrada->producto->clasificacion)
 				{
-					echo CHtml::tag('option',array(),CHtml::encode('Seleccione una Clasificacion'),true);
+					echo CHtml::tag('h3',array(),CHtml::encode('Seleccione una Clasificacion'),true);
 				
 					$data=CHtml::listData(Clasificacion::model()->findAll(array('condition'=>'variedad_did='.$entrada->variedad->id, 'order'=>'nombre')), 'id', 'nombre');
 					
 				}
 					
-				}
+				
 				else if ($entrada->producto->calibre)
 				{
-					echo CHtml::tag('option',array(),CHtml::encode('Seleccione una Calibre'),true);
+					echo CHtml::tag('h3',array(),CHtml::encode('Seleccione una Calibre'),true);
 				
 					$data=CHtml::listData(Calibre::model()->findAll(array('condition'=>'variedad_did='.$entrada->variedad->id, 'order'=>'nombre')), 'id', 'nombre');
 					
@@ -242,7 +241,7 @@ class VariedadController extends Controller
 				
 				foreach($data as $value=>$name)
 				{
-					echo CHtml::tag('option',
+					echo CHtml::tag('h3',
 						array('value'=>$value),CHtml::encode($name),true);
 				}
 			

@@ -6,7 +6,7 @@
 			<?php echo CHtml::encode($data->fecha_f); ?>
 		</td>
 		<td>
-			<?php echo CHtml::encode($data->entrada->nombre); ?>
+			<?php echo CHtml::encode($data->entrada->codigo); ?>
 		</td>
 		<td>
 			<?php echo CHtml::encode($data->estatus->nombre); ?>

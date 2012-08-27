@@ -26,17 +26,17 @@
 		<div class="input">
 			
 			<?php
-					if ($fechaIncial_f!='') 
-						$fechaIncial_f=date('d-m-Y',strtotime($fechaIncial_f));
+					if ($model->fechaIncial_f!='') 
+						$model->fechaIncial_f=date('d-m-Y',strtotime($model->fechaIncial_f));
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					                                       'model'=>$model,
 					                                       'attribute'=>'fechaIncial_f',
-					                                       'value'=>$fechaIncial_f,
+					                                       'value'=>$model->fechaIncial_f,
 					                                       'language' => 'es',
 					                                       'htmlOptions' => array('readonly'=>"readonly"),
 					                                       'options'=>array(
 					                                               'autoSize'=>true,
-					                                               'defaultDate'=>$fechaIncial_f,
+					                                               'defaultDate'=>$model->fechaIncial_f,
 					                                               'dateFormat'=>'yy-mm-dd',
 					                                               'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
 					                                               'buttonImageOnly'=>true,
@@ -58,17 +58,17 @@
 		<div class="input">
 			
 			<?php
-					if ($fechaFinal_f!='') 
-						$fechaFinal_f=date('d-m-Y',strtotime($fechaFinal_f));
+					if ($model->fechaFinal_f!='') 
+						$model->fechaFinal_f=date('d-m-Y',strtotime($model->fechaFinal_f));
 					$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					                                       'model'=>$model,
 					                                       'attribute'=>'fechaFinal_f',
-					                                       'value'=>$fechaFinal_f,
+					                                       'value'=>$model->fechaFinal_f,
 					                                       'language' => 'es',
 					                                       'htmlOptions' => array('readonly'=>"readonly"),
 					                                       'options'=>array(
 					                                               'autoSize'=>true,
-					                                               'defaultDate'=>$fechaFinal_f,
+					                                               'defaultDate'=>$model->fechaFinal_f,
 					                                               'dateFormat'=>'yy-mm-dd',
 					                                               'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
 					                                               'buttonImageOnly'=>true,
@@ -89,7 +89,7 @@
 		<?php echo $form->label($model,'estatus_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,estatus_did,CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>		</div>
+			<?php echo $form->dropDownList($model,'estatus_did',CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre')); ?>		</div>
 	</div>
 
 	<div class="actions">

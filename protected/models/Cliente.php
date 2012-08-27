@@ -56,6 +56,8 @@ class Cliente extends CActiveRecord
 		return array(
 			array('nombre, apellidos, fechaNacimiento_f, estado_did, municipio_aid, estatus_did', 'required'),
 			array('estado_did, municipio_aid, estatus_did', 'numerical', 'integerOnly'=>true),
+			//array('estado_did, estatus_did','dropdownfield'),
+			//array('municipio_aid','autocompletefield'),
 			array('nombre, apellidos, razonSocial, calle, colonia, celular', 'length', 'max'=>145),
 			array('rfc', 'length', 'max'=>13),
 			array('codigopostal', 'length', 'max'=>10),
@@ -80,6 +82,34 @@ class Cliente extends CActiveRecord
 			'entradas' => array(self::HAS_MANY, 'Entrada', 'cliente_aid'),
 			'salidas' => array(self::HAS_MANY, 'Salida', 'cliente_aid'),
 		);
+	}
+	
+	/**
+	*
+	**/
+	public function attributeDatatypeRelation($attr)
+	{
+		$relations =$this->relations();
+		foreach($relations as $nombre=>$relacion)
+			if($relacion[2]===$attr)
+				return $relacion[1];
+		
+		return null;
+	}
+	
+	
+	/**
+	* elimina en cascada
+	**/
+	public function deleteCascade()
+	{
+		foreach ($this->entradas as $entradasn )
+			$entradasn->deleteCascade();
+
+		foreach ($this->salidas as $salidasn )
+			$salidasn->deleteCascade();
+
+		$this->delete();
 	}
 
 	/**
