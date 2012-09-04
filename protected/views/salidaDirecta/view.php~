@@ -22,7 +22,7 @@ $this->menu=array(
 	'cssFile'=>false,
 	'htmlOptions'=>array('class'=>'table table-bordered table-striped'),
 	'attributes'=>array(
-
+		'id',
 		'codigoSalida',
 		'fecha_f',
 		array(	'name'=>'entrada_aid',

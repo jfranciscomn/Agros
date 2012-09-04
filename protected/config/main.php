@@ -74,7 +74,7 @@ return array(
 		//c4
 		'db'=>array(
 			'connectionString'=>'mysql:host=localhost;dbname=agros',
-			'username'=>'francisco',
+			'username'=>'root',
 			'password'=>'123qwe',
 			'charset'=>'utf8',
 		),

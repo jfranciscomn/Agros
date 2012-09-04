@@ -31,7 +31,7 @@
 			
 				<?php
 						if ($model->fecha_f!='') 
-							$model->fecha_f=date('d-m-Y',strtotime($model->fecha_f));
+							$model->fecha_f=date('Y-m-d',strtotime($model->fecha_f));
 						$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 							                               'model'=>$model,
 							                               'attribute'=>'fecha_f',

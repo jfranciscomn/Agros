@@ -63,7 +63,7 @@
 					      'sourceUrl'=>Yii::app()->createUrl('entrada/autocompletesearch'), 
 					      'showFKField'=>false,
 					      'relName'=>'entrada', // the relation name defined above
-					      'displayAttr'=>'codigo',  // attribute or pseudo-attribute to display
+					      'displayAttr'=>'nombre',  // attribute or pseudo-attribute to display
 
 					      'options'=>array(
 					          'minLength'=>1, 

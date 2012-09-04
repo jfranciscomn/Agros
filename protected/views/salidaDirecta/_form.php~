@@ -30,8 +30,8 @@
 					<div class="input">
 			
 						<?php
-								if ($model->fecha_f!='') 
-									$model->fecha_f=date('Y-m-d',strtotime($model->fecha_f));
+								//if ($model->fecha_f!='') 
+									//$model->fecha_f=date('Y-m-d',strtotime($model->fecha_f));
 								$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 											               'model'=>$model,
 											               'attribute'=>'fecha_f',
@@ -41,7 +41,7 @@
 											               'options'=>array(
 											                       'autoSize'=>true,
 											                       'defaultDate'=>$model->fecha_f,
-											                       'dateFormat'=>'yy-mm-dd',
+											                       //'dateFormat'=>'yy-mm-dd',
 											                       'buttonImage'=>Yii::app()->baseUrl.'/images/calendar.png',
 											                       'buttonImageOnly'=>true,
 											                       'buttonText'=>'Fecha',

@@ -44,15 +44,15 @@ class SalidaDirecta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('codigoSalida, fecha_f, entrada_aid, cantidad, estatus_did, temporada_did', 'required'),
-			array('entrada_aid, estatus_did, temporada_did', 'numerical', 'integerOnly'=>true),
+			array('codigoSalida, fecha_f, entrada_aid, cantidad, estatus_did, temporada_did, unidad_did', 'required'),
+			array('entrada_aid, estatus_did, temporada_did, unidad_did', 'numerical', 'integerOnly'=>true),
 			array('cantidad', 'numerical'),
-			array('estatus_did, temporada_did','dropdownfield'),
-			array('entrada_aid','autocompletefield'),
+			//array('estatus_did, temporada_did','dropdownfield'),
+			//array('entrada_aid','autocompletefield'),
 			array('codigoSalida', 'length', 'max'=>254),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, codigoSalida, fecha_f, entrada_aid, cantidad, estatus_did, temporada_did', 'safe', 'on'=>'search'),
+			array('id, codigoSalida, fecha_f, entrada_aid, cantidad, estatus_did, temporada_did, unidad_did', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,6 +64,7 @@ class SalidaDirecta extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'unidad' => array(self::BELONGS_TO, 'Unidad', 'unidad_did'),
 			'entrada' => array(self::BELONGS_TO, 'Entrada', 'entrada_aid'),
 			'estatus' => array(self::BELONGS_TO, 'Estatus', 'estatus_did'),
 			'temporada' => array(self::BELONGS_TO, 'Temporada', 'temporada_did'),
@@ -105,6 +106,7 @@ class SalidaDirecta extends CActiveRecord
 			'cantidad' => 'Cantidad',
 			'estatus_did' => 'Estatus',
 			'temporada_did' => 'Temporada',
+			'unidad_did' => 'Unidad',
 		);
 	}
 
@@ -126,6 +128,7 @@ class SalidaDirecta extends CActiveRecord
 		$criteria->compare('cantidad',$this->cantidad);
 		$criteria->compare('estatus_did',$this->estatus_did);
 		$criteria->compare('temporada_did',$this->temporada_did);
+		$criteria->compare('unidad_did',$this->unidad_did);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

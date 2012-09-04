@@ -69,8 +69,6 @@ class SalidaDirectaController extends Controller
 
 		if(isset($_POST['SalidaDirecta']))
 		{
-			$model->estatus_did = Estatus::model()->active->id;
-			$model->temporada_did = Temporada::model()->active->id;
 			$model->attributes=$_POST['SalidaDirecta'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
