@@ -34,7 +34,7 @@
 		<?php echo $form->labelEx($model,'tipousuario_did'); ?>
 		<div class="input">
 			
-			<?php echo $form->dropDownList($model,'tipousuario_did',CHtml::listData(Tipousuario::model()->findAll(), 'id', 'nombre')); ?>			<?php echo $form->error($model,'tipousuario_did'); ?>
+			<?php echo $form->dropDownList($model,'tipousuario_did',CHtml::listData(TipoUsuario::model()->findAll(), 'id', 'nombre')); ?>			<?php echo $form->error($model,'tipousuario_did'); ?>
 		</div>
 	</div>
 

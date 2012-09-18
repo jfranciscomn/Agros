@@ -46,7 +46,7 @@ $('.search-form form').submit(function(){
 		'usuario',
 		array(	'name'=>'tipousuario_did',
 		        'value'=>'$data->tipousuario->nombre',
-			    'filter'=>CHtml::listData(Tipousuario::model()->findAll(), 'id', 'nombre'),),
+			    'filter'=>CHtml::listData(TipoUsuario::model()->findAll(), 'id', 'nombre'),),
 		array(	'name'=>'estatus_did',
 		        'value'=>'$data->estatus->nombre',
 			    'filter'=>CHtml::listData(Estatus::model()->findAll(), 'id', 'nombre'),),

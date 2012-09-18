@@ -33,8 +33,7 @@
 				$items = array();
 				if(!Yii::app()->user->isGuest)
 				{
-					$items[]=array(
-				      'label'=>'Entradas',
+					$items[]=array('label'=>'Entradas',
 				      'url'=>'#',
 				      'itemOptions'=>array('class'=>'dropdown','id'=>'opcion',),
 				      'linkOptions'=>array('class'=>'dropdown-toggle','data-toggle'=>'dropdown'),
