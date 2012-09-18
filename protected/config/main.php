@@ -72,12 +72,18 @@ return array(
 		    ),*/
 		
 		//c4
-		'db'=>array(
+		/*'db'=>array(
 			'connectionString'=>'mysql:host=localhost;dbname=agros',
 			'username'=>'root',
 			'password'=>'123qwe',
 			'charset'=>'utf8',
-		),
+		),*/
+		'db'=>array(
+                        'connectionString'=>'mysql:host=localhost;dbname=weblabs_agros',
+                        'username'=>'weblabs_agros',
+                        'password'=>'123qwe',
+                        'charset'=>'utf8',
+                ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
